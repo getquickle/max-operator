@@ -857,7 +857,9 @@ main { position: relative; z-index: 1; }
   gap: 12px;
   flex-wrap: wrap;
 }
-.exec-mode.delayed { border-left-color: var(--accent); background: rgba(217,119,66,0.04); }
+.exec-mode.am { border-left-color: var(--cyan); }
+.exec-mode.lunch { border-left-color: var(--moss); background: rgba(122,146,104,0.04); }
+.exec-mode.pm { border-left-color: var(--accent); background: rgba(217,119,66,0.04); }
 .exec-mode.no-zero { border-left-color: var(--signal); background: rgba(184,92,60,0.05); }
 
 .exec-mode-left {
@@ -879,7 +881,9 @@ main { position: relative; z-index: 1; }
   letter-spacing: 0.04em;
   color: var(--text);
 }
-.exec-mode.delayed .exec-mode-value { color: var(--accent); }
+.exec-mode.am .exec-mode-value { color: var(--cyan); }
+.exec-mode.lunch .exec-mode-value { color: var(--moss); }
+.exec-mode.pm .exec-mode-value { color: var(--accent); }
 .exec-mode.no-zero .exec-mode-value { color: var(--signal); }
 .exec-mode-cutoff {
   font-family: var(--mono);
@@ -915,8 +919,23 @@ main { position: relative; z-index: 1; }
   border-color: var(--accent);
   color: var(--accent);
 }
-.exec-mode-btn.delayed.active { background: rgba(217,119,66,0.12); }
+.exec-mode-btn.am.active { background: rgba(91,138,153,0.12); border-color: var(--cyan); color: var(--cyan); }
+.exec-mode-btn.lunch.active { background: rgba(122,146,104,0.12); border-color: var(--moss); color: var(--moss); }
+.exec-mode-btn.pm.active { background: rgba(217,119,66,0.12); border-color: var(--accent); color: var(--accent); }
 .exec-mode-btn.no-zero.active { background: rgba(184,92,60,0.12); border-color: var(--signal); color: var(--signal); }
+
+/* ---------- PM fallback banner inside training section ---------- */
+.pm-banner {
+  margin: 4px 16px 10px;
+  padding: 10px 12px;
+  background: rgba(217,119,66,0.06);
+  border-left: 2px solid var(--accent);
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1.55;
+  color: var(--text-2);
+}
+.pm-banner strong { color: var(--accent); font-weight: 600; }
 
 /* ---------- sauna section ---------- */
 .sauna-section {
@@ -977,8 +996,8 @@ main { position: relative; z-index: 1; }
   margin: 0 auto;
   padding: 12px var(--pad);
   display: grid;
-  grid-template-columns: auto 1fr auto auto auto;
-  gap: 14px;
+  grid-template-columns: auto 1fr auto auto;
+  gap: 12px;
   align-items: center;
 }
 .prog-label {
@@ -1002,16 +1021,87 @@ main { position: relative; z-index: 1; }
   width: 0%;
   transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.prog-pct {
-  font-family: var(--serif);
-  font-size: 18px;
-  font-weight: 400;
-  color: var(--text);
-  min-width: 50px;
-  text-align: right;
-  line-height: 1;
+/* legacy classes — kept for safety, no longer rendered */
+.prog-pct { display: none; }
+.prog-track { display: none; }
+
+.prog-mission {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
-.prog-pct.complete { color: var(--moss); }
+.prog-mission .dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: 1.5px solid var(--text-mute);
+  background: transparent;
+  flex-shrink: 0;
+  transition: all 0.25s ease;
+}
+.prog-mission.win {
+  color: var(--moss);
+  font-weight: 600;
+}
+.prog-mission.win .dot {
+  background: var(--moss);
+  border-color: var(--moss);
+  box-shadow: 0 0 8px rgba(122,146,104,0.6);
+}
+.prog-mission.muted { color: var(--text-faint); }
+.prog-mission.muted .dot { border-color: var(--text-faint); }
+
+.prog-week {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  overflow: hidden;
+}
+.prog-week-dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0;
+  color: var(--text-mute);
+  text-transform: uppercase;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+.prog-week-dot.complete {
+  background: var(--moss);
+  border-color: var(--moss);
+  color: var(--bg);
+  font-weight: 700;
+}
+.prog-week-dot.future {
+  border-style: dashed;
+  border-color: var(--text-faint);
+  color: var(--text-faint);
+}
+.prog-week-dot.today {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px var(--bg), 0 0 0 3px var(--accent);
+}
+.prog-week-dot.today:not(.complete) {
+  color: var(--accent);
+  font-weight: 600;
+}
+
 .prog-btn {
   background: transparent;
   border: 1px solid var(--border);
@@ -1361,8 +1451,11 @@ main { position: relative; z-index: 1; }
   .stat-value { font-size: 18px; }
   .meal-time { width: 64px; font-size: 8px; }
   .opt-grid { grid-template-columns: 1fr; }
-  .prog-inner { gap: 10px; }
-  .prog-pct { font-size: 16px; min-width: 42px; }
+  .prog-inner { gap: 8px; }
+  .prog-mission { font-size: 10px; gap: 6px; letter-spacing: 0.12em; }
+  .prog-mission .dot { width: 9px; height: 9px; }
+  .prog-week-dot { width: 18px; height: 18px; font-size: 8px; }
+  .prog-week { gap: 3px; }
   .protein-list .food-item { grid-template-columns: 1fr auto; }
 }
 
@@ -1431,9 +1524,11 @@ main { position: relative; z-index: 1; }
 
 <div class="prog">
   <div class="prog-inner">
-    <div class="prog-label">Today</div>
-    <div class="prog-track"><div class="prog-fill" id="prog-fill"></div></div>
-    <div class="prog-pct" id="prog-pct">0%</div>
+    <div class="prog-mission" id="prog-mission">
+      <span class="dot"></span>
+      <span class="label">—</span>
+    </div>
+    <div class="prog-week" id="prog-week"></div>
     <button class="prog-btn-text" id="btn-realign" title="Realign / drift check">Align</button>
     <button class="prog-btn" id="btn-settings" title="Settings">⚙</button>
   </div>
@@ -1533,9 +1628,11 @@ let store = loadStore();
 function getToday() {
   const k = todayKey();
   if (!store.history[k]) {
-    store.history[k] = { sleep: null, checks: {}, exec: 'standard' };
+    store.history[k] = { sleep: null, checks: {}, exec: 'am' };
   }
-  if (!store.history[k].exec) store.history[k].exec = 'standard';
+  // Migrate legacy exec values
+  if (!store.history[k].exec || store.history[k].exec === 'standard') store.history[k].exec = 'am';
+  if (store.history[k].exec === 'delayed') store.history[k].exec = 'pm';
   return store.history[k];
 }
 
@@ -1560,6 +1657,7 @@ const TRAINING_PLANS = {
   },
   tuesday: {
     mission: 'Engine Session',
+    pmUnsafe: true,
     full: [
       { id: 'warmup', text: 'Warmup — 10 min easy jog OR brisk walk' },
       { id: 'pick-format', text: 'Pick ONE format and stick with it', detail: 'Outdoor running · Treadmill · Hill repeats · Stairs. Complete all 8 rounds in the chosen format.' },
@@ -1575,6 +1673,11 @@ const TRAINING_PLANS = {
     ],
     reduced: [
       { id: 'walk-r', text: '40 min brisk walk' },
+    ],
+    shiftFallback: [
+      { id: 'sf-walk', text: '30–45 min Zone 2 walk', detail: 'Brisk, conversational. Keeps sleep intact.' },
+      { id: 'sf-r1', text: 'Round 1 — minimum circuit', rounds: ['10 pushups','15 squats','20 sec plank'] },
+      { id: 'sf-r2', text: 'Round 2 — minimum circuit', rounds: ['10 pushups','15 squats','20 sec plank'], detail: 'Sleep protected. Identity preserved.' },
     ],
   },
   wednesday: 'monday',
@@ -1632,6 +1735,10 @@ function getActiveTrainingItems() {
   const today = getToday();
   if (today.exec === 'no-zero') return NO_ZERO_PLAN.items;
   const plan = getPlan(dayName());
+  // PM execution of a sleep-disrupting session → auto-substitute fallback
+  if (today.exec === 'pm' && plan.pmUnsafe && plan.shiftFallback) {
+    return plan.shiftFallback;
+  }
   const mode = today.sleep === 'yes' ? 'full' : 'reduced';
   return plan[mode];
 }
@@ -1781,25 +1888,41 @@ function renderMorningSection() {
 
 function renderExecModeSwitcher() {
   const today = getToday();
-  const mode = today.exec || 'standard';
+  const mode = today.exec || 'am';
   const wrap = el('div', { class: 'exec-mode ' + mode });
 
   const left = el('div', { class: 'exec-mode-left' });
-  left.appendChild(el('div', { class: 'exec-mode-label' }, 'Execution mode'));
+  left.appendChild(el('div', { class: 'exec-mode-label' }, 'Execution window'));
   let valueText, sub;
-  if (mode === 'standard')      { valueText = 'STANDARD'; sub = 'Mission, on time'; }
-  else if (mode === 'delayed')  { valueText = 'DELAYED — finish by 8:30 PM'; sub = 'Morning disrupted. Workout shifts to evening. Food stays on plan.'; }
-  else                          { valueText = 'NO-ZERO — minimum save'; sub = '20 min walk + 2 rounds. Mission preserved. Tomorrow = full protocol.'; }
+  if (mode === 'am') {
+    valueText = 'AM — primary';
+    sub = 'Best physiological + family fit. Standard protocol.';
+  } else if (mode === 'lunch') {
+    valueText = 'LUNCH — secondary';
+    sub = 'Full plan, midday window. Recovery-safe.';
+  } else if (mode === 'pm') {
+    const plan = getPlan(dayName());
+    if (plan.pmUnsafe) {
+      valueText = 'PM — fallback substituted';
+      sub = 'Hard intervals wreck sleep. Auto-swapped to Zone 2 + minimum circuit.';
+    } else {
+      valueText = 'PM — session-appropriate';
+      sub = 'Late window. Foundation, Z2, recovery, mountain all allowed here.';
+    }
+  } else {
+    valueText = 'NO-ZERO — minimum save';
+    sub = '20 min walk + 2 rounds. Mission preserved. Tomorrow = full protocol.';
+  }
   left.appendChild(el('div', { class: 'exec-mode-value' }, valueText));
   left.appendChild(el('div', { class: 'exec-mode-cutoff' }, sub));
 
   const btns = el('div', { class: 'exec-mode-btns' });
-  ['standard','delayed','no-zero'].forEach(m => {
-    const label = m === 'no-zero' ? 'No-Zero' : (m.charAt(0).toUpperCase() + m.slice(1));
+  const labels = { 'am': 'AM', 'lunch': 'Lunch', 'pm': 'PM', 'no-zero': 'No-Zero' };
+  ['am','lunch','pm','no-zero'].forEach(m => {
     const b = el('button', {
       class: 'exec-mode-btn ' + m + (mode === m ? ' active' : ''),
       onclick: () => setExecMode(m)
-    }, label);
+    }, labels[m]);
     btns.appendChild(b);
   });
 
@@ -1811,47 +1934,59 @@ function renderExecModeSwitcher() {
 function setExecMode(newMode) {
   const today = getToday();
   if (today.exec === newMode) return;
-  // Clear training-specific checks when switching to/from no-zero,
-  // since the task list itself changes
-  const switchingNoZero = today.exec === 'no-zero' || newMode === 'no-zero';
-  if (switchingNoZero) {
-    Object.keys(today.checks).forEach(k => {
-      if (k.startsWith('circuit') || k.startsWith('int-') || k.startsWith('walk') ||
-          k.startsWith('nz-') || k === 'warmup' || k === 'cooldown' || k === 'z2' ||
-          k === 'mtn' || k === 'mtn-r' || k === 'pack' || k === 'pack-r' ||
-          k === 'mob' || k === 'mob-r' || k === 'pick-format') {
-        delete today.checks[k];
-      }
-    });
-  }
+  // Clear training-specific checks since the active plan can change
+  Object.keys(today.checks).forEach(k => {
+    if (k.startsWith('circuit') || k.startsWith('int-') || k.startsWith('walk') ||
+        k.startsWith('nz-') || k.startsWith('sf-') || k === 'warmup' || k === 'cooldown' ||
+        k === 'z2' || k === 'mtn' || k === 'mtn-r' || k === 'pack' || k === 'pack-r' ||
+        k === 'mob' || k === 'mob-r' || k === 'pick-format') {
+      delete today.checks[k];
+    }
+  });
   today.exec = newMode;
   saveStore(store);
   render();
-  if (newMode === 'standard')      showToast('Standard execution');
-  else if (newMode === 'delayed')  showToast('Delayed mode — finish by 8:30 PM');
-  else                             showToast('No-zero — save the day');
+  const msg = {
+    'am': 'AM execution — primary window',
+    'lunch': 'Lunch window — full plan',
+    'pm': 'PM window — session-appropriate',
+    'no-zero': 'No-zero — save the day',
+  }[newMode];
+  showToast(msg);
 }
 
 function renderTrainingSection() {
   const today = getToday();
   const day = dayName();
-  const exec = today.exec || 'standard';
+  const exec = today.exec || 'am';
 
-  let missionText, modeTag, items;
+  let missionText, modeTag, items, pmSubstituted = false;
   if (exec === 'no-zero') {
     missionText = NO_ZERO_PLAN.mission;
     modeTag = 'No-Zero';
     items = NO_ZERO_PLAN.items;
   } else {
     const plan = getPlan(day);
-    const mode = today.sleep === 'yes' ? 'full' : 'reduced';
-    missionText = plan.mission;
-    modeTag = mode === 'full' ? 'Full' : 'Reduced';
-    items = plan[mode];
+    if (exec === 'pm' && plan.pmUnsafe && plan.shiftFallback) {
+      missionText = plan.mission + ' (PM fallback)';
+      modeTag = 'PM Safe';
+      items = plan.shiftFallback;
+      pmSubstituted = true;
+    } else {
+      const mode = today.sleep === 'yes' ? 'full' : 'reduced';
+      missionText = plan.mission;
+      modeTag = mode === 'full' ? 'Full' : 'Reduced';
+      items = plan[mode];
+    }
   }
 
   const sec = el('section', { class: 'section' });
-  const tagClass = exec === 'no-zero' ? 'reduced' : (modeTag === 'Full' ? 'full' : 'reduced');
+  let tagClass = '';
+  if (exec === 'no-zero')        tagClass = 'reduced';
+  else if (modeTag === 'Full')   tagClass = 'full';
+  else if (modeTag === 'Reduced') tagClass = 'reduced';
+  // PM Safe → default (no extra class)
+
   const head = el('div', { class: 'section-head' },
     el('div', { class: 'section-head-left' },
       el('div', { class: 'section-num' }, '02 //'),
@@ -1861,6 +1996,11 @@ function renderTrainingSection() {
   );
   sec.appendChild(head);
   const body = el('div', { class: 'section-body' });
+  if (pmSubstituted) {
+    const banner = el('div', { class: 'pm-banner' });
+    banner.innerHTML = '<strong>Substituted for sleep.</strong> Hard intervals at night spike cortisol and wreck sleep. Today\'s session becomes a Zone 2 walk + minimum circuit. Mission preserved. Hard work returns tomorrow.';
+    body.appendChild(banner);
+  }
   items.forEach(t => body.appendChild(renderTaskItem(t)));
   sec.appendChild(body);
   return sec;
@@ -1994,14 +2134,14 @@ function renderMealsSection() {
 function renderPrimeRule() {
   const banner = el('div', { class: 'prime-banner' });
   const body = el('div', { class: 'prime-banner-body' });
-  body.appendChild(el('h3', { class: 'prime-banner-title', html: 'Start early <em>or</em> finish late.' }));
-  body.appendChild(el('div', { class: 'prime-banner-sub' }, 'The workout happens today. Morning is preferred. Evening is acceptable. Skipping is not. Mission delayed — not canceled.'));
+  body.appendChild(el('h3', { class: 'prime-banner-title', html: 'Start early <em>or</em> shift smart.' }));
+  body.appendChild(el('div', { class: 'prime-banner-sub' }, 'The workout happens today. Morning is preferred. Lunch is excellent. Evening is allowed for session-appropriate work. Skipping is not. Mission delayed — not canceled.'));
   banner.appendChild(body);
 
   const wins = el('div', { class: 'prime-banner-wins' });
   const winData = [
-    { label: 'Win A', text: 'Ideal morning — standard protocol' },
-    { label: 'Win B', text: 'Delayed evening — cutoff 8:30 PM' },
+    { label: 'Win A', text: 'AM — primary window' },
+    { label: 'Win B', text: 'Lunch / PM — session-appropriate' },
     { label: 'Win C', text: 'No-zero minimum — save the day' },
   ];
   winData.forEach(w => {
@@ -2031,24 +2171,28 @@ function renderRules() {
 function renderEmergency() {
   const sec = el('details', { class: 'collapse' });
   const sum = el('summary');
-  sum.appendChild(el('div', { class: 'collapse-title', html: '<span class="glyph">▲</span>Delayed execution + fall-off protocol' }));
+  sum.appendChild(el('div', { class: 'collapse-title', html: '<span class="glyph">▲</span>Execution windows + fall-off protocol' }));
   sum.appendChild(el('div', { class: 'collapse-chev' }, '+'));
   sec.appendChild(sum);
 
   const body = el('div', { class: 'collapse-body' });
   body.innerHTML = `
-    <p><strong>If the morning blows up</strong> — baby chaos, work emergency, oversleep — tap <strong>Delayed</strong> on the execution mode switcher. Morning compliance (water, electrolytes, breakfast) still happens. Workout moves to evening.</p>
+    <p><strong>The day has three legitimate execution windows.</strong> Tap the matching mode on the execution-window switcher. Morning compliance (water, electrolytes, breakfast) always still happens.</p>
     <div class="rule">
-      <div class="rule-trigger">Morning win</div>
-      <div class="rule-action">Standard protocol — hydration → training → breakfast → normal cadence.</div>
+      <div class="rule-trigger">AM (primary)</div>
+      <div class="rule-action">Standard protocol — hydration → training → breakfast → normal cadence. Best fit physiologically and family-wise.</div>
     </div>
     <div class="rule">
-      <div class="rule-trigger">Delayed exec</div>
-      <div class="rule-action">Food stays 100% on plan. Workout shifts to evening. <strong>Hard cutoff: 8:30 PM.</strong> If smoked, do reduced. If decent, do full.</div>
+      <div class="rule-trigger">Lunch</div>
+      <div class="rule-action">Full plan, midday window. Recovery-safe. Hard intervals fully welcome here — sleep is far away.</div>
+    </div>
+    <div class="rule">
+      <div class="rule-trigger">PM</div>
+      <div class="rule-action">Late window. Foundation, Zone 2, recovery walks, mountain — all allowed. <strong>For Tuesday intervals or any pmUnsafe session: the system auto-substitutes a Zone 2 walk + minimum circuit.</strong> Sleep is protected. Hard work returns tomorrow.</div>
     </div>
     <div class="rule">
       <div class="rule-trigger">No-zero</div>
-      <div class="rule-action">Evening also collapses → 20 min walk + 2 rounds (pushups · squats · plank). Mission preserved. Tomorrow = full protocol.</div>
+      <div class="rule-action">All windows collapse → 20 min walk + 2 rounds (pushups · squats · plank). Mission preserved. Tomorrow = full protocol.</div>
     </div>
     <div class="rule">
       <div class="rule-trigger">Bad meal</div>
@@ -2185,21 +2329,29 @@ function getActiveTaskIds() {
 
 function updateProgress() {
   const today = getToday();
-  if (today.sleep === null) {
-    document.getElementById('prog-fill').style.width = '0%';
-    document.getElementById('prog-pct').textContent = '—';
-    document.getElementById('prog-pct').classList.remove('complete');
-    return;
-  }
-  const ids = getActiveTaskIds();
-  const done = ids.filter(id => today.checks[id]).length;
-  const pct = ids.length ? Math.round((done / ids.length) * 100) : 0;
-  document.getElementById('prog-fill').style.width = pct + '%';
-  document.getElementById('prog-pct').textContent = pct + '%';
-  document.getElementById('prog-pct').classList.toggle('complete', pct === 100);
+  const todayK = todayKey();
+  const isWin = isDayComplete(todayK);
 
+  // ── Today's binary mission state
+  const m = document.getElementById('prog-mission');
+  m.classList.remove('win','muted');
+  const label = m.querySelector('.label');
+  if (today.sleep === null) {
+    m.classList.add('muted');
+    label.textContent = '—';
+  } else if (isWin) {
+    m.classList.add('win');
+    label.textContent = 'Win';
+  } else {
+    label.textContent = 'Open';
+  }
+
+  // ── 7-day Mon-Sun scorecard
+  renderWeekScorecard();
+
+  // ── Mission-complete banner
   const existing = document.getElementById('complete-banner');
-  if (pct === 100) {
+  if (isWin) {
     if (!existing) {
       const c = el('div', { class: 'complete-banner', id: 'complete-banner' });
       c.appendChild(el('h3', null, 'Mission complete.'));
@@ -2209,6 +2361,30 @@ function updateProgress() {
     }
   } else if (existing) {
     existing.remove();
+  }
+}
+
+function renderWeekScorecard() {
+  const wk = document.getElementById('prog-week');
+  if (!wk) return;
+  wk.innerHTML = '';
+  const now = new Date(); now.setHours(0,0,0,0);
+  const dow = now.getDay();           // 0=Sun, 1=Mon, ..., 6=Sat
+  const sinceMonday = (dow === 0) ? 6 : (dow - 1);
+  const monday = new Date(now.getTime() - sinceMonday * 86400000);
+  const labels = ['M','T','W','T','F','S','S'];
+  const todayK = todayKey();
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(monday.getTime() + i * 86400000);
+    const k = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+    const isToday = (k === todayK);
+    const isFuture = d > now;
+    const complete = isDayComplete(k);
+    const dot = el('div', { class: 'prog-week-dot' }, labels[i]);
+    if (complete) dot.classList.add('complete');
+    if (isFuture) dot.classList.add('future');
+    if (isToday)  dot.classList.add('today');
+    wk.appendChild(dot);
   }
 }
 
@@ -2241,15 +2417,22 @@ function isDayComplete(dateKey) {
   if (!data || !data.sleep) return false;
   const d = new Date(dateKey + 'T12:00:00');
   const dn = DAY_NAMES[d.getDay()];
-  const exec = data.exec || 'standard';
+  let exec = data.exec || 'am';
+  // Migrate legacy values
+  if (exec === 'standard') exec = 'am';
+  if (exec === 'delayed')  exec = 'pm';
   const ids = [];
   MORNING_TRIGGER.forEach(t => ids.push(t.id));
   if (exec === 'no-zero') {
     NO_ZERO_PLAN.items.forEach(t => ids.push(t.id));
   } else {
     const plan = getPlan(dn);
-    const mode = data.sleep === 'yes' ? 'full' : 'reduced';
-    plan[mode].forEach(t => ids.push(t.id));
+    if (exec === 'pm' && plan.pmUnsafe && plan.shiftFallback) {
+      plan.shiftFallback.forEach(t => ids.push(t.id));
+    } else {
+      const mode = data.sleep === 'yes' ? 'full' : 'reduced';
+      plan[mode].forEach(t => ids.push(t.id));
+    }
   }
   MEALS.forEach(m => ids.push(m.id));
   if (dn === 'saturday') { ids.push('wk-weigh'); }
@@ -2406,7 +2589,7 @@ document.querySelectorAll('#opt-sauna button').forEach(b => {
 
 document.getElementById('btn-reset-today').addEventListener('click', () => {
   if (!confirm('Reset today\'s progress? Sleep answer, execution mode, and all checks will clear for today only.')) return;
-  store.history[todayKey()] = { sleep: null, checks: {}, exec: 'standard' };
+  store.history[todayKey()] = { sleep: null, checks: {}, exec: 'am' };
   saveStore(store);
   closeSettings();
   render();
@@ -2459,6 +2642,7 @@ const PERSONAL_ANCHORS = [
 
 const OPERATOR_CODE = [
   'Pace, not panic. The mountain rewards rhythm.',
+  'Hard sessions live in AM or lunch. PM gets the smart substitute, not the same workout.',
   'Earn progression — do not seek it. Volume up only after the current week feels almost easy.',
   'One pair of shoes is one injury waiting. Rotate: <em>road shoe / trail shoe.</em>',
   'Prehab the feet — 5 min, 3×/week. Calf raises, tib raises, single-leg balance.',
