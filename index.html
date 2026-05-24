@@ -35,13 +35,13 @@
   --text-mute:   #6e6a5e;
   --text-faint:  #44423a;
 
-  --accent:      #d97742;   /* alpenglow */
+  --accent:      #d97742;
   --accent-dim:  #8a4a26;
   --accent-soft: rgba(217,119,66,0.10);
 
-  --signal:      #b85c3c;   /* weathered red */
-  --moss:        #7a9268;   /* completed */
-  --cyan:        #5b8a99;   /* info */
+  --signal:      #b85c3c;
+  --moss:        #7a9268;
+  --cyan:        #5b8a99;
 
   --grid:        rgba(255,255,255,0.025);
 
@@ -69,7 +69,6 @@ body {
   overflow-x: hidden;
 }
 
-/* ---------- topographic background ---------- */
 body::before {
   content: '';
   position: fixed;
@@ -141,14 +140,12 @@ main { position: relative; z-index: 1; }
 }
 .cmd-meta b { color: var(--text-2); font-weight: 500; }
 
-/* ---------- container ---------- */
 .wrap {
   max-width: 720px;
   margin: 0 auto;
   padding: 0 var(--pad);
 }
 
-/* ---------- hero ---------- */
 .hero {
   padding: 32px 0 28px;
   border-bottom: 1px solid var(--border-soft);
@@ -195,7 +192,6 @@ main { position: relative; z-index: 1; }
 }
 .hero-mission .bar { width: 18px; height: 1px; background: var(--accent); }
 
-/* ---------- stat strip ---------- */
 .stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -235,7 +231,6 @@ main { position: relative; z-index: 1; }
 .stat-value.accent { color: var(--accent); }
 .stat-value.moss { color: var(--moss); }
 
-/* ---------- sleep gate ---------- */
 .gate {
   margin: 36px 0;
   padding: 28px 22px;
@@ -338,7 +333,6 @@ main { position: relative; z-index: 1; }
 }
 .sleep-status button:hover { color: var(--accent); border-color: var(--accent); }
 
-/* ---------- section ---------- */
 .section {
   margin: 28px 0;
   border: 1px solid var(--border-soft);
@@ -393,7 +387,6 @@ main { position: relative; z-index: 1; }
 .section-tag.full { color: var(--moss); border-color: rgba(122,146,104,0.3); }
 .section-body { padding: 10px 0 6px; }
 
-/* ---------- checklist items ---------- */
 .task {
   display: flex;
   align-items: flex-start;
@@ -452,13 +445,9 @@ main { position: relative; z-index: 1; }
   margin-top: 6px;
   letter-spacing: 0.01em;
 }
-.task-detail ul {
-  margin: 4px 0 0;
-  padding-left: 16px;
-}
+.task-detail ul { margin: 4px 0 0; padding-left: 16px; }
 .task-detail ul li { margin-bottom: 2px; }
 
-/* round indicator – grouped sub-items */
 .task-rounds {
   margin-top: 8px;
   padding: 8px 10px;
@@ -474,15 +463,8 @@ main { position: relative; z-index: 1; }
   text-transform: uppercase;
   margin-bottom: 4px;
 }
-.task-rounds ul {
-  margin: 0;
-  padding-left: 16px;
-  list-style: none;
-}
-.task-rounds ul li {
-  position: relative;
-  padding-left: 0;
-}
+.task-rounds ul { margin: 0; padding-left: 16px; list-style: none; }
+.task-rounds ul li { position: relative; padding-left: 0; }
 .task-rounds ul li::before {
   content: '—';
   color: var(--text-faint);
@@ -528,6 +510,15 @@ main { position: relative; z-index: 1; }
   line-height: 1.6;
 }
 .meal-list .b { color: var(--text-mute); margin-right: 6px; }
+.meal-list .suggest {
+  display: block;
+  margin-top: 4px;
+  font-size: 11px;
+  color: var(--text-mute);
+  letter-spacing: 0.06em;
+  font-style: italic;
+}
+.meal-list .suggest b { color: var(--accent); font-style: normal; font-weight: 500; margin-right: 4px; }
 .meal-item.checked .meal-list { color: var(--text-mute); text-decoration: line-through; text-decoration-color: var(--text-faint); }
 .meal-item.checked .task-box { border-color: var(--accent); background: var(--accent-soft); }
 .meal-item.checked .task-box::after { transform: scale(1); }
@@ -537,6 +528,152 @@ main { position: relative; z-index: 1; }
   margin-top: 6px;
   font-style: italic;
 }
+
+/* ---------- protein reference card ---------- */
+.protein-ref {
+  margin: 14px 16px 6px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border-soft);
+  border-left: 2px solid var(--accent-dim);
+}
+.protein-ref summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.protein-ref summary::-webkit-details-marker { display: none; }
+.protein-ref-title {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+.protein-ref-title .glyph { color: var(--accent); margin-right: 8px; }
+.protein-ref[open] .collapse-chev { transform: rotate(45deg); color: var(--accent); }
+.protein-ref-body {
+  padding: 0 14px 14px;
+  border-top: 1px solid var(--border-soft);
+  padding-top: 12px;
+}
+.protein-tier {
+  margin-bottom: 14px;
+}
+.protein-tier:last-child { margin-bottom: 0; }
+.protein-tier-hd {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.protein-tier-hd .name {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text);
+  font-weight: 600;
+}
+.protein-tier-hd .meta {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+}
+.protein-tier.daily .name { color: var(--moss); }
+.protein-tier.occasional .name { color: var(--signal); }
+.protein-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 4px 12px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-2);
+  padding-left: 4px;
+}
+.protein-list span {
+  position: relative;
+  padding-left: 12px;
+}
+.protein-list span::before {
+  content: '·';
+  position: absolute;
+  left: 0;
+  color: var(--text-faint);
+}
+.protein-portion {
+  margin-top: 10px;
+  font-size: 11px;
+  color: var(--text-2);
+  line-height: 1.6;
+}
+.protein-portion b { color: var(--accent); font-weight: 500; }
+.protein-warn {
+  margin-top: 10px;
+  padding: 8px 10px;
+  background: rgba(184,92,60,0.06);
+  border-left: 2px solid var(--signal);
+  font-size: 11px;
+  color: var(--text-2);
+  line-height: 1.55;
+}
+.protein-warn b { color: var(--signal); font-weight: 600; }
+
+/* ---------- weekly grid ---------- */
+.week-grid {
+  margin: 12px 16px 6px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border-soft);
+}
+.week-grid summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.week-grid summary::-webkit-details-marker { display: none; }
+.week-grid[open] .collapse-chev { transform: rotate(45deg); color: var(--accent); }
+.week-table {
+  padding: 0 0 6px;
+  border-top: 1px solid var(--border-soft);
+}
+.week-row {
+  display: grid;
+  grid-template-columns: 60px 1fr 1fr;
+  border-bottom: 1px solid var(--border-soft);
+  font-family: var(--mono);
+  font-size: 12px;
+}
+.week-row:last-child { border-bottom: none; }
+.week-row.head {
+  background: var(--surface);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+}
+.week-row.today {
+  background: var(--accent-soft);
+}
+.week-row.today .week-day { color: var(--accent); font-weight: 600; }
+.week-row > div {
+  padding: 8px 12px;
+  border-right: 1px solid var(--border-soft);
+}
+.week-row > div:last-child { border-right: none; }
+.week-day {
+  color: var(--text-mute);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.week-meal { color: var(--text-2); }
 
 /* ---------- collapsibles ---------- */
 .collapse {
@@ -622,7 +759,6 @@ main { position: relative; z-index: 1; }
   font-size: 10px;
 }
 
-/* ---------- rules card ---------- */
 .rules-card {
   margin: 20px 0;
   padding: 18px 18px 16px;
@@ -660,7 +796,6 @@ main { position: relative; z-index: 1; }
   color: var(--accent);
 }
 
-/* ---------- progress bar (sticky bottom) ---------- */
 .prog {
   position: fixed;
   left: 0; right: 0; bottom: 0;
@@ -727,7 +862,6 @@ main { position: relative; z-index: 1; }
 }
 .prog-btn:hover { border-color: var(--accent); color: var(--accent); }
 
-/* ---------- modal ---------- */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -823,7 +957,6 @@ main { position: relative; z-index: 1; }
 }
 .danger-btn:hover { background: rgba(184,92,60,0.1); }
 
-/* ---------- footer ---------- */
 .foot {
   text-align: center;
   font-family: var(--mono);
@@ -835,7 +968,6 @@ main { position: relative; z-index: 1; }
 }
 .foot .dot { color: var(--accent); }
 
-/* ---------- toast ---------- */
 .toast {
   position: fixed;
   bottom: 96px;
@@ -859,7 +991,6 @@ main { position: relative; z-index: 1; }
   transform: translateX(-50%) translateY(0);
 }
 
-/* ---------- mission complete state ---------- */
 .complete-banner {
   margin: 32px 0;
   padding: 22px;
@@ -884,7 +1015,6 @@ main { position: relative; z-index: 1; }
   margin: 0;
 }
 
-/* ---------- small screens ---------- */
 @media (max-width: 480px) {
   body { font-size: 13px; }
   .hero { padding: 24px 0 20px; }
@@ -894,6 +1024,8 @@ main { position: relative; z-index: 1; }
   .opt-grid { grid-template-columns: 1fr; }
   .prog-inner { gap: 10px; }
   .prog-pct { font-size: 16px; min-width: 42px; }
+  .week-row { grid-template-columns: 56px 1fr 1fr; }
+  .protein-list { grid-template-columns: 1fr 1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -921,7 +1053,6 @@ main { position: relative; z-index: 1; }
 
 <main class="wrap">
 
-  <!-- HERO -->
   <section class="hero">
     <div class="hero-eyebrow">
       <span>Day</span>
@@ -937,7 +1068,6 @@ main { position: relative; z-index: 1; }
     </div>
   </section>
 
-  <!-- STAT STRIP -->
   <div class="stats">
     <div class="stat">
       <div class="stat-label">Streak</div>
@@ -953,7 +1083,6 @@ main { position: relative; z-index: 1; }
     </div>
   </div>
 
-  <!-- DYNAMIC CONTENT -->
   <div id="content"></div>
 
   <div class="foot">
@@ -962,7 +1091,6 @@ main { position: relative; z-index: 1; }
 
 </main>
 
-<!-- STICKY PROGRESS -->
 <div class="prog">
   <div class="prog-inner">
     <div class="prog-label">Today</div>
@@ -972,7 +1100,6 @@ main { position: relative; z-index: 1; }
   </div>
 </div>
 
-<!-- SETTINGS MODAL -->
 <div class="modal-overlay" id="modal-settings">
   <div class="modal">
     <div class="modal-hd">
@@ -1035,7 +1162,7 @@ function loadStore() {
 }
 function defaultStore() {
   return {
-    history: {},                        // { '2026-05-23': { sleep, checks: {id:true}, mission, mode } }
+    history: {},
     settings: { snack: null, units: 'imperial' },
   };
 }
@@ -1053,7 +1180,7 @@ function getToday() {
 }
 
 /* ============================================================
-   PLAN DATA — verbatim from spec
+   TRAINING PLANS
    ============================================================ */
 
 const TRAINING_PLANS = {
@@ -1071,7 +1198,6 @@ const TRAINING_PLANS = {
       { id: 'circuit-r2', text: 'Round 2 — circuit', rounds: ['10 pushups','15 squats','8 lunges each leg','20 sec plank'] },
     ],
   },
-
   tuesday: {
     mission: 'Engine Session',
     full: [
@@ -1091,9 +1217,7 @@ const TRAINING_PLANS = {
       { id: 'walk-r', text: '40 min brisk walk' },
     ],
   },
-
-  wednesday: 'monday', // identical
-
+  wednesday: 'monday',
   thursday: {
     mission: 'Long Engine Session',
     full: [
@@ -1103,9 +1227,7 @@ const TRAINING_PLANS = {
       { id: 'walk-r', text: '40 min brisk walk' },
     ],
   },
-
-  friday: 'monday', // identical
-
+  friday: 'monday',
   saturday: {
     mission: 'Mountain Session',
     full: [
@@ -1117,7 +1239,6 @@ const TRAINING_PLANS = {
       { id: 'mtn-r', text: '60 min steep hike — minimum', detail: 'Still mandatory.' },
     ],
   },
-
   sunday: {
     mission: 'Recovery',
     full: [
@@ -1145,6 +1266,40 @@ const MORNING_TRIGGER = [
   { id: 'm-go',     text: 'Begin training within 15 minutes' },
 ];
 
+/* ============================================================
+   PROTEIN FRAMEWORK
+   ============================================================ */
+
+const PROTEINS_DAILY = [
+  'chicken breast',
+  'lean ground turkey',
+  '93/7 lean beef',
+  'top sirloin',
+  'sirloin tip',
+  'eye of round',
+  'elk steak',
+  'venison steak',
+  'venison burger (lean)',
+  'bison',
+];
+
+const PROTEINS_OCCASIONAL = [
+  'ribeye',
+  'NY strip',
+  'fattier burger',
+];
+
+// Suggested rotation — used for the daily prompt and the weekly grid
+const WEEKLY_ROTATION = {
+  monday:    { lunch: 'Chicken breast',      dinner: 'Elk steak' },
+  tuesday:   { lunch: 'Lean beef (93/7)',    dinner: 'Venison steak' },
+  wednesday: { lunch: 'Chicken breast',      dinner: 'Top sirloin' },
+  thursday:  { lunch: 'Venison',             dinner: 'Elk steak' },
+  friday:    { lunch: 'Chicken breast',      dinner: 'Lean burger patties' },
+  saturday:  { lunch: 'Free meal flex',      dinner: 'Free meal flex',  note: 'Within reason. Stay near plan.' },
+  sunday:    { lunch: 'Chicken or turkey',   dinner: 'Lean reset (chicken / turkey / lean beef)' },
+};
+
 const MEALS = [
   { id: 'meal-bf', timeLabel: 'Post-Train', timeSub: 'within 60m', items: [
     '3 whole eggs',
@@ -1154,24 +1309,22 @@ const MEALS = [
   { id: 'meal-mm', timeLabel: 'Mid-Morn', timeSub: '', items: [
     'Protein shake in water — minimum 40g protein',
   ]},
-  { id: 'meal-ln', timeLabel: 'Lunch', timeSub: '', items: [
-    '8 oz cooked chicken breast',
+  { id: 'meal-ln', timeLabel: 'Lunch', timeSub: 'compliance fuel', kind: 'LUNCH', staticItems: [
     '1 cup cooked jasmine rice',
-    'Broccoli',
+    'Broccoli or green veg',
     'Salt freely',
   ]},
   { id: 'meal-aft', timeLabel: 'Afternoon', timeSub: '', items: 'SNACK', note: 'Set in Settings — choose one option and commit for 30 days.' },
-  { id: 'meal-dn', timeLabel: 'Dinner', timeSub: '', items: [
-    '8–10 oz lean beef / venison / elk',
+  { id: 'meal-dn', timeLabel: 'Dinner', timeSub: 'nicer cut', kind: 'DINNER', staticItems: [
     '1 medium sweet potato',
-    'Green vegetable',
+    'Green vegetable (asparagus, broccoli, greens)',
   ]},
 ];
 
 const BANNED = ['cereal','chips','cookies','candy','pastries','ice cream','soda','juice','fast food','office snacks','"just one bite"'];
 
 /* ============================================================
-   RENDERING
+   ELEMENT HELPER
    ============================================================ */
 
 function el(tag, attrs, ...children) {
@@ -1193,7 +1346,11 @@ function el(tag, attrs, ...children) {
   return e;
 }
 
-function renderTaskItem(task, isReducedMode) {
+/* ============================================================
+   TASKS + TRAINING + MORNING
+   ============================================================ */
+
+function renderTaskItem(task) {
   const today = getToday();
   const checked = !!today.checks[task.id];
 
@@ -1251,6 +1408,18 @@ function renderTrainingSection() {
   return sec;
 }
 
+/* ============================================================
+   MEALS — with protein framework
+   ============================================================ */
+
+function suggestedProtein(kind) {
+  const rot = WEEKLY_ROTATION[dayName()];
+  if (!rot) return null;
+  if (kind === 'LUNCH')  return rot.lunch;
+  if (kind === 'DINNER') return rot.dinner;
+  return null;
+}
+
 function renderMealItem(meal) {
   const today = getToday();
   const checked = !!today.checks[meal.id];
@@ -1261,6 +1430,14 @@ function renderMealItem(meal) {
     if (snack === 'yogurt') listHTML = '<span class="b">·</span>Plain Greek yogurt';
     else if (snack === 'eggs') listHTML = '<span class="b">·</span>2 hard-boiled eggs';
     else listHTML = '<span style="color:var(--signal)">⚠ Choose option in Settings</span>';
+  } else if (meal.kind === 'LUNCH' || meal.kind === 'DINNER') {
+    const suggestion = suggestedProtein(meal.kind);
+    const portion = meal.kind === 'LUNCH' ? '8–10 oz lean (cooked)' : '8–10 oz lean OR 6–8 oz fattier cut (cooked)';
+    listHTML = `<div><span class="b">·</span>Protein — ${portion}</div>`;
+    if (suggestion) {
+      listHTML += `<span class="suggest"><b>Today:</b>${suggestion}</span>`;
+    }
+    listHTML += meal.staticItems.map(i => `<div><span class="b">·</span>${i}</div>`).join('');
   } else {
     listHTML = meal.items.map(i => `<div><span class="b">·</span>${i}</div>`).join('');
   }
@@ -1276,6 +1453,82 @@ function renderMealItem(meal) {
   return row;
 }
 
+function renderProteinRef() {
+  const det = el('details', { class: 'protein-ref' });
+  const sum = el('summary');
+  sum.appendChild(el('div', { class: 'protein-ref-title', html: '<span class="glyph">⛁</span>Approved proteins · portion rules' }));
+  sum.appendChild(el('div', { class: 'collapse-chev' }, '+'));
+  det.appendChild(sum);
+
+  const body = el('div', { class: 'protein-ref-body' });
+
+  // Daily tier
+  const daily = el('div', { class: 'protein-tier daily' });
+  daily.appendChild(el('div', { class: 'protein-tier-hd' },
+    el('span', { class: 'name' }, 'Daily // interchangeable'),
+    el('span', { class: 'meta' }, 'lean')
+  ));
+  const dailyList = el('div', { class: 'protein-list' });
+  PROTEINS_DAILY.forEach(p => dailyList.appendChild(el('span', null, p)));
+  daily.appendChild(dailyList);
+  body.appendChild(daily);
+
+  // Occasional tier
+  const occ = el('div', { class: 'protein-tier occasional' });
+  occ.appendChild(el('div', { class: 'protein-tier-hd' },
+    el('span', { class: 'name' }, 'Occasional // cap 1–2x / wk'),
+    el('span', { class: 'meta' }, 'fattier')
+  ));
+  const occList = el('div', { class: 'protein-list' });
+  PROTEINS_OCCASIONAL.forEach(p => occList.appendChild(el('span', null, p)));
+  occ.appendChild(occList);
+  body.appendChild(occ);
+
+  // Portion rules
+  const portion = el('div', { class: 'protein-portion', html:
+    '<b>Lean cuts</b> — cooked weight <b>8–10 oz</b> (chicken, venison, elk, sirloin, bison, lean ground)<br>' +
+    '<b>Fattier cuts</b> — cooked weight <b>6–8 oz</b> (ribeye, strip, fattier burger)'
+  });
+  body.appendChild(portion);
+
+  // Overeating warning
+  const warn = el('div', { class: 'protein-warn', html:
+    '<b>Warning</b> — protein choice is not the issue, total intake is. Don\'t stack: 16 oz elk + butter + extra eggs + cheese + nuts. Fat loss stalls quietly.'
+  });
+  body.appendChild(warn);
+
+  det.appendChild(body);
+  return det;
+}
+
+function renderWeeklyGrid() {
+  const det = el('details', { class: 'week-grid' });
+  const sum = el('summary');
+  sum.appendChild(el('div', { class: 'protein-ref-title', html: '<span class="glyph">▦</span>Weekly protein rotation' }));
+  sum.appendChild(el('div', { class: 'collapse-chev' }, '+'));
+  det.appendChild(sum);
+
+  const table = el('div', { class: 'week-table' });
+  table.appendChild(el('div', { class: 'week-row head' },
+    el('div', { class: 'week-day' }, 'Day'),
+    el('div', null, 'Lunch'),
+    el('div', null, 'Dinner')
+  ));
+
+  const today = dayName();
+  ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'].forEach(d => {
+    const r = WEEKLY_ROTATION[d];
+    const row = el('div', { class: 'week-row' + (d === today ? ' today' : '') },
+      el('div', { class: 'week-day' }, d.slice(0,3).toUpperCase()),
+      el('div', { class: 'week-meal' }, r.lunch),
+      el('div', { class: 'week-meal' }, r.dinner)
+    );
+    table.appendChild(row);
+  });
+  det.appendChild(table);
+  return det;
+}
+
 function renderMealsSection() {
   const sec = el('section', { class: 'section' });
   const head = el('div', { class: 'section-head' },
@@ -1283,19 +1536,25 @@ function renderMealsSection() {
       el('div', { class: 'section-num' }, '03 //'),
       el('h2', { class: 'section-title' }, 'Fuel ', el('em', null, 'protocol'))
     ),
-    el('div', { class: 'section-tag' }, 'Fixed')
+    el('div', { class: 'section-tag' }, 'Flex')
   );
   sec.appendChild(head);
   const body = el('div', { class: 'section-body' });
   MEALS.forEach(m => body.appendChild(renderMealItem(m)));
   sec.appendChild(body);
 
-  // Night hunger note
-  const note = el('div', { class: 'collapse' });
-  const sum = el('summary');
-  sum.appendChild(el('div', { class: 'collapse-title', html: '<span class="glyph">○</span>Night hunger emergency' }));
-  sum.appendChild(el('div', { class: 'collapse-chev' }, '+'));
-  note.appendChild(sum);
+  // Protein framework reference
+  sec.appendChild(renderProteinRef());
+
+  // Weekly rotation grid
+  sec.appendChild(renderWeeklyGrid());
+
+  // Night hunger emergency
+  const note = el('details', { class: 'collapse' });
+  const nsum = el('summary');
+  nsum.appendChild(el('div', { class: 'collapse-title', html: '<span class="glyph">○</span>Night hunger emergency' }));
+  nsum.appendChild(el('div', { class: 'collapse-chev' }, '+'));
+  note.appendChild(nsum);
   note.appendChild(el('div', { class: 'collapse-body', html: '<p><strong>Allowed:</strong> protein shake in water. <strong>Nothing else.</strong></p>' }));
   sec.appendChild(note);
 
@@ -1306,7 +1565,7 @@ function renderMealsSection() {
   bsum.appendChild(el('div', { class: 'collapse-chev' }, '+'));
   banned.appendChild(bsum);
   const bbody = el('div', { class: 'collapse-body' });
-  bbody.appendChild(el('p', { html: '<strong>Rule:</strong> if it\'s not on the meal list, don\'t eat it.' }));
+  bbody.appendChild(el('p', { html: '<strong>Rule:</strong> if it\'s not on the meal list or protein framework, don\'t eat it.' }));
   const grid = el('div', { class: 'banned-grid' });
   BANNED.forEach(b => grid.appendChild(el('span', null, b)));
   bbody.appendChild(grid);
@@ -1315,6 +1574,10 @@ function renderMealsSection() {
 
   return sec;
 }
+
+/* ============================================================
+   STATIC SECTIONS
+   ============================================================ */
 
 function renderRules() {
   const card = el('div', { class: 'rules-card' });
@@ -1398,7 +1661,6 @@ function renderSleepStatus() {
 function setSleep(answer) {
   const today = getToday();
   today.sleep = answer;
-  // If switching modes, clear training-specific checks
   Object.keys(today.checks).forEach(k => {
     if (k.startsWith('circuit') || k.startsWith('int-') || k.startsWith('walk') || k === 'warmup' || k === 'cooldown' || k === 'z2' || k === 'mtn' || k === 'mtn-r' || k === 'pack' || k === 'pack-r' || k === 'mob' || k === 'mob-r' || k === 'pick-format') {
       delete today.checks[k];
@@ -1417,7 +1679,6 @@ function toggleCheck(id) {
   const today = getToday();
   today.checks[id] = !today.checks[id];
   saveStore(store);
-  // Targeted DOM update (faster than full re-render)
   document.querySelectorAll(`[data-id="${id}"]`).forEach(node => {
     node.classList.toggle('checked', !!today.checks[id]);
   });
@@ -1435,7 +1696,6 @@ function getActiveTaskIds() {
   const plan = getPlan(day);
   const mode = today.sleep === 'yes' ? 'full' : 'reduced';
   const ids = [];
-
   MORNING_TRIGGER.forEach(t => ids.push(t.id));
   plan[mode].forEach(t => ids.push(t.id));
   MEALS.forEach(m => ids.push(m.id));
@@ -1458,7 +1718,6 @@ function updateProgress() {
   document.getElementById('prog-pct').textContent = pct + '%';
   document.getElementById('prog-pct').classList.toggle('complete', pct === 100);
 
-  // Show / refresh complete banner
   const existing = document.getElementById('complete-banner');
   if (pct === 100) {
     if (!existing) {
@@ -1474,14 +1733,11 @@ function updateProgress() {
 }
 
 function computeStreak() {
-  // Count consecutive days ending today (or yesterday if today not yet started) where day was 100%.
-  const days = Object.keys(store.history).sort();
   let streak = 0;
   const oneDay = 86400000;
   let cursor = new Date();
   cursor.setHours(0,0,0,0);
 
-  // If today is not 100%, we still count the streak up to yesterday.
   const todayK = todayKey();
   const today = store.history[todayK];
   const todayDone = today && isDayComplete(todayK);
@@ -1503,7 +1759,6 @@ function computeStreak() {
 function isDayComplete(dateKey) {
   const data = store.history[dateKey];
   if (!data || !data.sleep) return false;
-  // Determine day-of-week from key
   const d = new Date(dateKey + 'T12:00:00');
   const dn = DAY_NAMES[d.getDay()];
   const plan = getPlan(dn);
@@ -1522,7 +1777,7 @@ function updateStreak() {
 }
 
 /* ============================================================
-   HEADER + STATS
+   HEADER
    ============================================================ */
 
 function updateHeader() {
@@ -1531,7 +1786,6 @@ function updateHeader() {
   const idx = now.getDay();
   document.getElementById('hero-day').innerHTML = DAY_DISPLAY[idx] + '<em>.</em>';
 
-  // Day of program — count from first entry
   const allDates = Object.keys(store.history).sort();
   const firstDate = allDates[0] || todayKey();
   const start = new Date(firstDate + 'T12:00:00');
@@ -1541,12 +1795,10 @@ function updateHeader() {
   document.getElementById('hero-daynum').textContent = String(dayNum).padStart(2,'0');
   document.getElementById('hero-week').textContent = 'Week ' + String(weekNum).padStart(2,'0');
 
-  // Mission
   const plan = getPlan(day);
   const heroMission = document.getElementById('hero-mission');
   heroMission.innerHTML = '<span class="bar"></span><span>' + plan.mission.toUpperCase() + '</span>';
 
-  // Mode
   const todayData = getToday();
   const stateMode = document.getElementById('stat-mode');
   if (todayData.sleep === null) {
@@ -1563,11 +1815,9 @@ function updateHeader() {
     stateMode.classList.add('moss');
   }
 
-  // Meta time/date
   document.getElementById('meta-date').textContent = todayKey();
   document.getElementById('meta-time').textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
 
-  // Target with units
   const targetEl = document.getElementById('stat-target');
   if (store.settings.units === 'metric') {
     targetEl.innerHTML = '88<span class="unit">kg</span>';
@@ -1606,7 +1856,7 @@ function render() {
 }
 
 /* ============================================================
-   SETTINGS MODAL
+   SETTINGS
    ============================================================ */
 
 function openSettings() {
@@ -1682,9 +1932,6 @@ function showToast(msg) {
   toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
 }
 
-/* ============================================================
-   KEYBOARD SHORTCUTS
-   ============================================================ */
 document.addEventListener('keydown', (e) => {
   if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
   if (e.key === 's' || e.key === 'S') { openSettings(); }
@@ -1692,20 +1939,18 @@ document.addEventListener('keydown', (e) => {
 });
 
 /* ============================================================
-   MIDNIGHT WATCH — auto-roll to next day
+   MIDNIGHT WATCH
    ============================================================ */
 let lastDate = todayKey();
 setInterval(() => {
   const now = todayKey();
   if (now !== lastDate) {
     lastDate = now;
-    // Ensure today's record exists for fresh day
     getToday();
     saveStore(store);
     render();
     showToast('New day. New mission.');
   }
-  // Refresh clock display
   const tEl = document.getElementById('meta-time');
   if (tEl) tEl.textContent = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
 }, 30000);
@@ -1714,8 +1959,6 @@ setInterval(() => {
    INIT
    ============================================================ */
 render();
-
-// Ensure today's record initialized
 getToday();
 saveStore(store);
 </script>
