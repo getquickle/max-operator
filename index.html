@@ -510,15 +510,6 @@ main { position: relative; z-index: 1; }
   line-height: 1.6;
 }
 .meal-list .b { color: var(--text-mute); margin-right: 6px; }
-.meal-list .suggest {
-  display: block;
-  margin-top: 4px;
-  font-size: 11px;
-  color: var(--text-mute);
-  letter-spacing: 0.06em;
-  font-style: italic;
-}
-.meal-list .suggest b { color: var(--accent); font-style: normal; font-weight: 500; margin-right: 4px; }
 .meal-item.checked .meal-list { color: var(--text-mute); text-decoration: line-through; text-decoration-color: var(--text-faint); }
 .meal-item.checked .task-box { border-color: var(--accent); background: var(--accent-soft); }
 .meal-item.checked .task-box::after { transform: scale(1); }
@@ -560,21 +551,23 @@ main { position: relative; z-index: 1; }
   padding-top: 12px;
 }
 .protein-tier {
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 .protein-tier:last-child { margin-bottom: 0; }
 .protein-tier-hd {
   display: flex;
   align-items: baseline;
+  justify-content: space-between;
   gap: 10px;
   margin-bottom: 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--border-soft);
 }
 .protein-tier-hd .name {
   font-family: var(--mono);
   font-size: 10px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--text);
   font-weight: 600;
 }
 .protein-tier-hd .meta {
@@ -584,26 +577,61 @@ main { position: relative; z-index: 1; }
   text-transform: uppercase;
   color: var(--text-mute);
 }
-.protein-tier.daily .name { color: var(--moss); }
-.protein-tier.occasional .name { color: var(--signal); }
+.protein-tier.tier1 .name { color: var(--accent); }
+.protein-tier.tier2 .name { color: var(--moss); }
+.protein-tier.tier3 .name { color: var(--text-2); }
+.protein-tier.resilience .name { color: var(--cyan); }
+.protein-tier.removed .name { color: var(--signal); }
+
 .protein-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.protein-list .food-item {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 4px 12px;
+  grid-template-columns: 1fr auto;
+  grid-template-areas: "name score" "note note";
+  gap: 2px 8px;
+  padding: 8px 10px;
+  background: var(--bg);
+  border: 1px solid var(--border-soft);
+}
+.protein-list .food-name {
+  grid-area: name;
   font-family: var(--mono);
   font-size: 12px;
-  color: var(--text-2);
-  padding-left: 4px;
+  color: var(--text);
+  font-weight: 500;
+  letter-spacing: 0.01em;
 }
-.protein-list span {
-  position: relative;
-  padding-left: 12px;
+.protein-list .food-score {
+  grid-area: score;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: var(--text-mute);
+  align-self: center;
 }
-.protein-list span::before {
-  content: '·';
-  position: absolute;
-  left: 0;
-  color: var(--text-faint);
+.protein-list .food-note {
+  grid-area: note;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-mute);
+  line-height: 1.5;
+}
+.protein-tier.tier1 .food-item { border-left: 2px solid var(--accent); }
+.protein-tier.tier2 .food-item { border-left: 2px solid var(--moss); }
+.protein-tier.tier3 .food-item { border-left: 2px solid var(--text-mute); }
+.protein-tier.resilience .food-item { border-left: 2px solid var(--cyan); }
+.protein-tier.removed .food-item {
+  border-left: 2px solid var(--signal);
+  opacity: 0.55;
+}
+.protein-tier.removed .food-name {
+  text-decoration: line-through;
+  text-decoration-color: var(--signal);
+  color: var(--text-mute);
 }
 .protein-portion {
   margin-top: 10px;
@@ -622,58 +650,6 @@ main { position: relative; z-index: 1; }
   line-height: 1.55;
 }
 .protein-warn b { color: var(--signal); font-weight: 600; }
-
-/* ---------- weekly grid ---------- */
-.week-grid {
-  margin: 12px 16px 6px;
-  background: var(--bg-elev);
-  border: 1px solid var(--border-soft);
-}
-.week-grid summary {
-  list-style: none;
-  cursor: pointer;
-  padding: 12px 14px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.week-grid summary::-webkit-details-marker { display: none; }
-.week-grid[open] .collapse-chev { transform: rotate(45deg); color: var(--accent); }
-.week-table {
-  padding: 0 0 6px;
-  border-top: 1px solid var(--border-soft);
-}
-.week-row {
-  display: grid;
-  grid-template-columns: 60px 1fr 1fr;
-  border-bottom: 1px solid var(--border-soft);
-  font-family: var(--mono);
-  font-size: 12px;
-}
-.week-row:last-child { border-bottom: none; }
-.week-row.head {
-  background: var(--surface);
-  font-size: 9px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text-mute);
-}
-.week-row.today {
-  background: var(--accent-soft);
-}
-.week-row.today .week-day { color: var(--accent); font-weight: 600; }
-.week-row > div {
-  padding: 8px 12px;
-  border-right: 1px solid var(--border-soft);
-}
-.week-row > div:last-child { border-right: none; }
-.week-day {
-  color: var(--text-mute);
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-.week-meal { color: var(--text-2); }
 
 /* ---------- collapsibles ---------- */
 .collapse {
@@ -1024,8 +1000,7 @@ main { position: relative; z-index: 1; }
   .opt-grid { grid-template-columns: 1fr; }
   .prog-inner { gap: 10px; }
   .prog-pct { font-size: 16px; min-width: 42px; }
-  .week-row { grid-template-columns: 56px 1fr 1fr; }
-  .protein-list { grid-template-columns: 1fr 1fr; }
+  .protein-list .food-item { grid-template-columns: 1fr auto; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1267,57 +1242,72 @@ const MORNING_TRIGGER = [
 ];
 
 /* ============================================================
-   PROTEIN FRAMEWORK
+   CORE FOODS — tier list (8.4+ threshold)
    ============================================================ */
 
-const PROTEINS_DAILY = [
-  'chicken breast',
-  'lean ground turkey',
-  '93/7 lean beef',
-  'top sirloin',
-  'sirloin tip',
-  'eye of round',
-  'elk steak',
-  'venison steak',
-  'venison burger (lean)',
-  'bison',
-];
-
-const PROTEINS_OCCASIONAL = [
-  'ribeye',
-  'NY strip',
-  'fattier burger',
-];
-
-// Suggested rotation — used for the daily prompt and the weekly grid
-const WEEKLY_ROTATION = {
-  monday:    { lunch: 'Chicken breast',      dinner: 'Elk steak' },
-  tuesday:   { lunch: 'Lean beef (93/7)',    dinner: 'Venison steak' },
-  wednesday: { lunch: 'Chicken breast',      dinner: 'Top sirloin' },
-  thursday:  { lunch: 'Venison',             dinner: 'Elk steak' },
-  friday:    { lunch: 'Chicken breast',      dinner: 'Lean burger patties' },
-  saturday:  { lunch: 'Free meal flex',      dinner: 'Free meal flex',  note: 'Within reason. Stay near plan.' },
-  sunday:    { lunch: 'Chicken or turkey',   dinner: 'Lean reset (chicken / turkey / lean beef)' },
+const CORE_FOODS = {
+  tier1: {
+    label: 'Tier 1 // mandatory anchors',
+    score: '9.0+',
+    items: [
+      { name: 'Eggs', score: '8.9', note: 'cheap · elite nutrition · durable · emergency-proof' },
+      { name: 'Elk · Venison', score: '8.8–9.2', note: 'exceptional protein · high micronutrient · lean · satisfying' },
+    ],
+  },
+  tier2: {
+    label: 'Tier 2 // high-value staples',
+    score: '8.5–8.9',
+    items: [
+      { name: 'Lean ground beef (93/7)', score: '8.6', note: 'easy batch prep · better micronutrients · versatile · primary lunch protein' },
+      { name: 'Frozen broccoli', score: '8.7', note: 'durability king · cheap · zero prep friction' },
+      { name: 'Plain Greek yogurt', score: '8.7', note: 'zero prep · strong protein · compliance fuel' },
+      { name: 'Protein powder', score: '8.7', note: 'zero friction · emergency-proof · protein insurance' },
+    ],
+  },
+  tier3: {
+    label: 'Tier 3 // useful fuel',
+    score: '8.4–8.5',
+    items: [
+      { name: 'Jasmine rice', score: '8.4', note: 'foolproof · easy carbs · microwave-durable' },
+    ],
+  },
+  resilience: {
+    label: 'Resilience adds // for the long arc',
+    score: '8.1–8.2',
+    items: [
+      { name: 'Bananas', score: '8.1', note: 'potassium · pre-train carb option' },
+      { name: 'Sweet potatoes', score: '8.2', note: 'micronutrient diversity · dinner carb swap' },
+    ],
+  },
+  removed: {
+    label: 'Removed // below 8.4 threshold',
+    score: '< 8.4',
+    items: [
+      { name: 'Chicken breast', score: '7.2', note: 'too much prep friction · less nutrient-dense than beef' },
+      { name: 'Egg whites', score: '7.7', note: 'good tool, not foundational' },
+      { name: 'Apples', score: '8.1', note: 'fine, not elite enough' },
+    ],
+  },
 };
 
 const MEALS = [
   { id: 'meal-bf', timeLabel: 'Post-Train', timeSub: 'within 60m', items: [
-    '3 whole eggs',
-    '300g egg whites',
-    '1 apple',
+    '3–4 whole eggs',
   ]},
   { id: 'meal-mm', timeLabel: 'Mid-Morn', timeSub: '', items: [
     'Protein shake in water — minimum 40g protein',
   ]},
-  { id: 'meal-ln', timeLabel: 'Lunch', timeSub: 'compliance fuel', kind: 'LUNCH', staticItems: [
+  { id: 'meal-ln', timeLabel: 'Lunch', timeSub: 'compliance fuel', items: [
+    '8–10 oz lean ground beef (93/7), cooked',
     '1 cup cooked jasmine rice',
-    'Broccoli or green veg',
+    'Frozen broccoli — generous portion',
     'Salt freely',
   ]},
   { id: 'meal-aft', timeLabel: 'Afternoon', timeSub: '', items: 'SNACK', note: 'Set in Settings — choose one option and commit for 30 days.' },
-  { id: 'meal-dn', timeLabel: 'Dinner', timeSub: 'nicer cut', kind: 'DINNER', staticItems: [
-    '1 medium sweet potato',
-    'Green vegetable (asparagus, broccoli, greens)',
+  { id: 'meal-dn', timeLabel: 'Dinner', timeSub: 'protein flex', items: [
+    '8–10 oz elk · venison · OR lean beef (93/7), cooked',
+    '1 cup jasmine rice  — or 1 medium sweet potato (resilience)',
+    'Frozen broccoli — generous portion',
   ]},
 ];
 
@@ -1409,16 +1399,8 @@ function renderTrainingSection() {
 }
 
 /* ============================================================
-   MEALS — with protein framework
+   MEALS
    ============================================================ */
-
-function suggestedProtein(kind) {
-  const rot = WEEKLY_ROTATION[dayName()];
-  if (!rot) return null;
-  if (kind === 'LUNCH')  return rot.lunch;
-  if (kind === 'DINNER') return rot.dinner;
-  return null;
-}
 
 function renderMealItem(meal) {
   const today = getToday();
@@ -1430,14 +1412,6 @@ function renderMealItem(meal) {
     if (snack === 'yogurt') listHTML = '<span class="b">·</span>Plain Greek yogurt';
     else if (snack === 'eggs') listHTML = '<span class="b">·</span>2 hard-boiled eggs';
     else listHTML = '<span style="color:var(--signal)">⚠ Choose option in Settings</span>';
-  } else if (meal.kind === 'LUNCH' || meal.kind === 'DINNER') {
-    const suggestion = suggestedProtein(meal.kind);
-    const portion = meal.kind === 'LUNCH' ? '8–10 oz lean (cooked)' : '8–10 oz lean OR 6–8 oz fattier cut (cooked)';
-    listHTML = `<div><span class="b">·</span>Protein — ${portion}</div>`;
-    if (suggestion) {
-      listHTML += `<span class="suggest"><b>Today:</b>${suggestion}</span>`;
-    }
-    listHTML += meal.staticItems.map(i => `<div><span class="b">·</span>${i}</div>`).join('');
   } else {
     listHTML = meal.items.map(i => `<div><span class="b">·</span>${i}</div>`).join('');
   }
@@ -1453,41 +1427,36 @@ function renderMealItem(meal) {
   return row;
 }
 
-function renderProteinRef() {
+function renderCoreFoodsRef() {
   const det = el('details', { class: 'protein-ref' });
   const sum = el('summary');
-  sum.appendChild(el('div', { class: 'protein-ref-title', html: '<span class="glyph">⛁</span>Approved proteins · portion rules' }));
+  sum.appendChild(el('div', { class: 'protein-ref-title', html: '<span class="glyph">⛁</span>Core foods · tier list' }));
   sum.appendChild(el('div', { class: 'collapse-chev' }, '+'));
   det.appendChild(sum);
 
   const body = el('div', { class: 'protein-ref-body' });
 
-  // Daily tier
-  const daily = el('div', { class: 'protein-tier daily' });
-  daily.appendChild(el('div', { class: 'protein-tier-hd' },
-    el('span', { class: 'name' }, 'Daily // interchangeable'),
-    el('span', { class: 'meta' }, 'lean')
-  ));
-  const dailyList = el('div', { class: 'protein-list' });
-  PROTEINS_DAILY.forEach(p => dailyList.appendChild(el('span', null, p)));
-  daily.appendChild(dailyList);
-  body.appendChild(daily);
+  const tierOrder = ['tier1', 'tier2', 'tier3', 'resilience', 'removed'];
+  tierOrder.forEach(key => {
+    const tier = CORE_FOODS[key];
+    const wrap = el('div', { class: 'protein-tier ' + key });
+    wrap.appendChild(el('div', { class: 'protein-tier-hd' },
+      el('span', { class: 'name' }, tier.label),
+      el('span', { class: 'meta' }, tier.score)
+    ));
+    const list = el('div', { class: 'protein-list' });
+    tier.items.forEach(item => {
+      const sp = el('span', { class: 'food-item' });
+      sp.innerHTML = `<span class="food-name">${item.name}</span><span class="food-score">${item.score}</span><span class="food-note">${item.note}</span>`;
+      list.appendChild(sp);
+    });
+    wrap.appendChild(list);
+    body.appendChild(wrap);
+  });
 
-  // Occasional tier
-  const occ = el('div', { class: 'protein-tier occasional' });
-  occ.appendChild(el('div', { class: 'protein-tier-hd' },
-    el('span', { class: 'name' }, 'Occasional // cap 1–2x / wk'),
-    el('span', { class: 'meta' }, 'fattier')
-  ));
-  const occList = el('div', { class: 'protein-list' });
-  PROTEINS_OCCASIONAL.forEach(p => occList.appendChild(el('span', null, p)));
-  occ.appendChild(occList);
-  body.appendChild(occ);
-
-  // Portion rules
+  // Portion rule
   const portion = el('div', { class: 'protein-portion', html:
-    '<b>Lean cuts</b> — cooked weight <b>8–10 oz</b> (chicken, venison, elk, sirloin, bison, lean ground)<br>' +
-    '<b>Fattier cuts</b> — cooked weight <b>6–8 oz</b> (ribeye, strip, fattier burger)'
+    '<b>Lean protein portion</b> — cooked weight <b>8–10 oz</b> per meal'
   });
   body.appendChild(portion);
 
@@ -1497,35 +1466,13 @@ function renderProteinRef() {
   });
   body.appendChild(warn);
 
-  det.appendChild(body);
-  return det;
-}
-
-function renderWeeklyGrid() {
-  const det = el('details', { class: 'week-grid' });
-  const sum = el('summary');
-  sum.appendChild(el('div', { class: 'protein-ref-title', html: '<span class="glyph">▦</span>Weekly protein rotation' }));
-  sum.appendChild(el('div', { class: 'collapse-chev' }, '+'));
-  det.appendChild(sum);
-
-  const table = el('div', { class: 'week-table' });
-  table.appendChild(el('div', { class: 'week-row head' },
-    el('div', { class: 'week-day' }, 'Day'),
-    el('div', null, 'Lunch'),
-    el('div', null, 'Dinner')
-  ));
-
-  const today = dayName();
-  ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'].forEach(d => {
-    const r = WEEKLY_ROTATION[d];
-    const row = el('div', { class: 'week-row' + (d === today ? ' today' : '') },
-      el('div', { class: 'week-day' }, d.slice(0,3).toUpperCase()),
-      el('div', { class: 'week-meal' }, r.lunch),
-      el('div', { class: 'week-meal' }, r.dinner)
-    );
-    table.appendChild(row);
+  // Longevity caveat
+  const cav = el('div', { class: 'protein-portion', style: 'border-top: 1px dashed var(--border-soft); padding-top: 10px; margin-top: 12px;', html:
+    '<b style="color:var(--text-mute);">Honest note</b> — this list is built for 90-day fat-loss durability, not a forever diet. Long-term, add polyphenol diversity, more fruit, more micronutrient variety.'
   });
-  det.appendChild(table);
+  body.appendChild(cav);
+
+  det.appendChild(body);
   return det;
 }
 
@@ -1536,18 +1483,15 @@ function renderMealsSection() {
       el('div', { class: 'section-num' }, '03 //'),
       el('h2', { class: 'section-title' }, 'Fuel ', el('em', null, 'protocol'))
     ),
-    el('div', { class: 'section-tag' }, 'Flex')
+    el('div', { class: 'section-tag' }, 'Core')
   );
   sec.appendChild(head);
   const body = el('div', { class: 'section-body' });
   MEALS.forEach(m => body.appendChild(renderMealItem(m)));
   sec.appendChild(body);
 
-  // Protein framework reference
-  sec.appendChild(renderProteinRef());
-
-  // Weekly rotation grid
-  sec.appendChild(renderWeeklyGrid());
+  // Core foods tier list
+  sec.appendChild(renderCoreFoodsRef());
 
   // Night hunger emergency
   const note = el('details', { class: 'collapse' });
@@ -1565,7 +1509,7 @@ function renderMealsSection() {
   bsum.appendChild(el('div', { class: 'collapse-chev' }, '+'));
   banned.appendChild(bsum);
   const bbody = el('div', { class: 'collapse-body' });
-  bbody.appendChild(el('p', { html: '<strong>Rule:</strong> if it\'s not on the meal list or protein framework, don\'t eat it.' }));
+  bbody.appendChild(el('p', { html: '<strong>Rule:</strong> if it\'s not on the Core Foods list, don\'t eat it.' }));
   const grid = el('div', { class: 'banned-grid' });
   BANNED.forEach(b => grid.appendChild(el('span', null, b)));
   bbody.appendChild(grid);
