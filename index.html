@@ -772,6 +772,196 @@ main { position: relative; z-index: 1; }
   color: var(--accent);
 }
 
+/* ---------- prime execution rule banner ---------- */
+.prime-banner {
+  margin: 24px 0 8px;
+  padding: 0;
+  background: var(--bg-elev);
+  border: 1px solid var(--accent);
+  position: relative;
+  overflow: hidden;
+}
+.prime-banner::before {
+  content: 'PRIME RULE';
+  position: absolute;
+  top: 0; left: 0;
+  background: var(--accent);
+  color: var(--bg);
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.24em;
+  padding: 4px 10px;
+  font-weight: 600;
+}
+.prime-banner-body {
+  padding: 38px 20px 18px;
+}
+.prime-banner-title {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(22px, 5vw, 28px);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: var(--text);
+  margin: 0 0 6px;
+}
+.prime-banner-title em {
+  font-style: italic;
+  color: var(--accent);
+  font-weight: 400;
+}
+.prime-banner-sub {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--text-2);
+  line-height: 1.6;
+}
+.prime-banner-wins {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--border-soft);
+}
+.prime-win {
+  padding: 12px 14px;
+  border-right: 1px solid var(--border-soft);
+  background: var(--surface);
+}
+.prime-win:last-child { border-right: none; }
+.prime-win-label {
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+.prime-win-text {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text);
+  line-height: 1.45;
+}
+
+/* ---------- execution mode switcher ---------- */
+.exec-mode {
+  margin: 14px 0 0;
+  padding: 12px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-left: 2px solid var(--cyan);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.exec-mode.delayed { border-left-color: var(--accent); background: rgba(217,119,66,0.04); }
+.exec-mode.no-zero { border-left-color: var(--signal); background: rgba(184,92,60,0.05); }
+
+.exec-mode-left {
+  flex: 1;
+  min-width: 0;
+}
+.exec-mode-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+  margin-bottom: 4px;
+}
+.exec-mode-value {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text);
+}
+.exec-mode.delayed .exec-mode-value { color: var(--accent); }
+.exec-mode.no-zero .exec-mode-value { color: var(--signal); }
+.exec-mode-cutoff {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-mute);
+  margin-top: 4px;
+  letter-spacing: 0.08em;
+}
+.exec-mode-cutoff b { color: var(--signal); font-weight: 600; }
+.exec-mode-btns {
+  display: flex;
+  gap: 6px;
+}
+.exec-mode-btn {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 8px 10px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  color: var(--text-mute);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.exec-mode-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.exec-mode-btn.active {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.exec-mode-btn.delayed.active { background: rgba(217,119,66,0.12); }
+.exec-mode-btn.no-zero.active { background: rgba(184,92,60,0.12); border-color: var(--signal); color: var(--signal); }
+
+/* ---------- sauna section ---------- */
+.sauna-section {
+  margin: 28px 0;
+  border: 1px solid var(--border-soft);
+  background: rgba(91,138,153,0.04);
+}
+.sauna-section .section-head { border-bottom: 1px solid var(--border-soft); }
+.sauna-section .section-num { color: var(--cyan); }
+.sauna-section .section-tag { color: var(--cyan); border-color: rgba(91,138,153,0.3); }
+.sauna-body { padding: 14px 16px; }
+.sauna-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-soft);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.sauna-row:last-child { border-bottom: none; }
+.sauna-row.checked .task-box { border-color: var(--cyan); background: rgba(91,138,153,0.12); }
+.sauna-row.checked .task-box::after { background: var(--cyan); transform: scale(1); }
+.sauna-row.checked .sauna-text { color: var(--text-mute); }
+.sauna-text {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--text);
+}
+.sauna-text small {
+  display: block;
+  font-size: 10px;
+  color: var(--text-mute);
+  margin-top: 4px;
+  letter-spacing: 0.04em;
+}
+.sauna-note {
+  margin-top: 8px;
+  font-size: 11px;
+  color: var(--text-mute);
+  font-style: italic;
+  line-height: 1.55;
+}
+
+/* ---------- prog bar (sticky bottom) ---------- */
 .prog {
   position: fixed;
   left: 0; right: 0; bottom: 0;
@@ -787,7 +977,7 @@ main { position: relative; z-index: 1; }
   margin: 0 auto;
   padding: 12px var(--pad);
   display: grid;
-  grid-template-columns: auto 1fr auto auto;
+  grid-template-columns: auto 1fr auto auto auto;
   gap: 14px;
   align-items: center;
 }
@@ -837,6 +1027,179 @@ main { position: relative; z-index: 1; }
   transition: all 0.15s ease;
 }
 .prog-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+/* ---------- realign button (in prog bar) ---------- */
+.prog-btn-text {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-2);
+  height: 36px;
+  padding: 0 10px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.prog-btn-text:hover { border-color: var(--accent); color: var(--accent); }
+.prog-btn-text:active { transform: translateY(1px); }
+
+/* ---------- realign modal (drift check) ---------- */
+.modal--realign { max-width: 560px; }
+.realign-intro {
+  font-family: var(--serif);
+  font-size: 16px;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--text-2);
+  line-height: 1.55;
+  margin: 0 0 24px;
+  padding: 0 4px;
+  letter-spacing: -0.005em;
+}
+
+.realign-section {
+  margin-bottom: 28px;
+}
+.realign-section:last-child { margin-bottom: 0; }
+.realign-section-hd {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 14px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border-soft);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.realign-section-hd .meta {
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.22em;
+  color: var(--text-mute);
+  text-transform: uppercase;
+}
+
+/* anchor cards (personal) */
+.anchor {
+  padding: 16px 18px;
+  border: 1px solid var(--border-soft);
+  border-left: 2px solid var(--accent);
+  background: var(--surface);
+  margin-bottom: 10px;
+}
+.anchor:last-child { margin-bottom: 0; }
+.anchor-name {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.anchor-text {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.45;
+  color: var(--text);
+  letter-spacing: -0.005em;
+}
+.anchor-text em { font-style: italic; color: var(--text-2); }
+.anchor-quote {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border-soft);
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.5;
+}
+.anchor-quote-attr {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+  font-style: normal;
+}
+
+/* operator code (one-liner principles) */
+.code-list { padding: 0; margin: 0; list-style: none; }
+.code-line {
+  display: flex;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--border-soft);
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--text);
+}
+.code-line:last-child { border-bottom: none; }
+.code-line .idx {
+  flex-shrink: 0;
+  width: 24px;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: var(--text-faint);
+  padding-top: 2px;
+}
+.code-line .body { flex: 1; }
+.code-line .body em { font-style: italic; color: var(--text-mute); }
+
+/* quotes */
+.quote-block {
+  margin-bottom: 18px;
+  padding: 14px 0 0 14px;
+  border-left: 2px solid var(--border);
+}
+.quote-block:last-child { margin-bottom: 0; }
+.quote-text {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--text);
+  letter-spacing: -0.005em;
+}
+.quote-text::before { content: '“'; color: var(--accent); margin-right: 2px; }
+.quote-text::after  { content: '”'; color: var(--accent); margin-left: 2px; }
+.quote-attr {
+  display: block;
+  margin-top: 8px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+}
+.quote-attr b { color: var(--accent); font-weight: 600; }
+.quote-attr .src {
+  font-style: italic;
+  text-transform: none;
+  letter-spacing: 0.04em;
+  color: var(--text-mute);
+  margin-left: 4px;
+}
+
+@media (max-width: 480px) {
+  .prog-btn-text { padding: 0 8px; font-size: 9px; letter-spacing: 0.14em; }
+  .anchor-text { font-size: 16px; }
+  .quote-text { font-size: 15px; }
+}
 
 .modal-overlay {
   position: fixed;
@@ -1071,6 +1434,7 @@ main { position: relative; z-index: 1; }
     <div class="prog-label">Today</div>
     <div class="prog-track"><div class="prog-fill" id="prog-fill"></div></div>
     <div class="prog-pct" id="prog-pct">0%</div>
+    <button class="prog-btn-text" id="btn-realign" title="Realign / drift check">Align</button>
     <button class="prog-btn" id="btn-settings" title="Settings">⚙</button>
   </div>
 </div>
@@ -1100,11 +1464,31 @@ main { position: relative; z-index: 1; }
       </div>
 
       <div class="field">
+        <div class="field-label">Sauna Section</div>
+        <div class="opt-grid" id="opt-sauna">
+          <button data-val="off">Hide</button>
+          <button data-val="on">Show</button>
+        </div>
+      </div>
+
+      <div class="field">
         <div class="field-label">Danger Zone</div>
         <button class="danger-btn" id="btn-reset-today">Reset Today's Progress</button>
         <button class="danger-btn" id="btn-reset-all" style="margin-top:8px;">Wipe All Data</button>
       </div>
 
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-realign">
+  <div class="modal modal--realign">
+    <div class="modal-hd">
+      <h3>Realign</h3>
+      <button class="modal-close" id="realign-close">✕</button>
+    </div>
+    <div class="modal-body" id="realign-body">
+      <!-- rendered dynamically -->
     </div>
   </div>
 </div>
@@ -1138,7 +1522,7 @@ function loadStore() {
 function defaultStore() {
   return {
     history: {},
-    settings: { snack: null, units: 'imperial' },
+    settings: { snack: null, units: 'imperial', sauna: false },
   };
 }
 function saveStore(s) {
@@ -1149,8 +1533,9 @@ let store = loadStore();
 function getToday() {
   const k = todayKey();
   if (!store.history[k]) {
-    store.history[k] = { sleep: null, checks: {} };
+    store.history[k] = { sleep: null, checks: {}, exec: 'standard' };
   }
+  if (!store.history[k].exec) store.history[k].exec = 'standard';
   return store.history[k];
 }
 
@@ -1231,6 +1616,24 @@ function getPlan(day) {
   let p = TRAINING_PLANS[day];
   if (typeof p === 'string') p = TRAINING_PLANS[p];
   return p;
+}
+
+const NO_ZERO_PLAN = {
+  mission: 'No-Zero Fallback',
+  items: [
+    { id: 'nz-walk', text: '20 min walk', detail: 'Outdoor preferred. Door open, shoes on, just go.' },
+    { id: 'nz-r1', text: 'Round 1', rounds: ['10 pushups','15 squats','20 sec plank'], detail: 'Floor of your living room is fine.' },
+    { id: 'nz-r2', text: 'Round 2', rounds: ['10 pushups','15 squats','20 sec plank'], detail: 'Mission saved. Resume full protocol tomorrow.' },
+  ],
+};
+
+// Returns the array of training items active for today given sleep + exec mode
+function getActiveTrainingItems() {
+  const today = getToday();
+  if (today.exec === 'no-zero') return NO_ZERO_PLAN.items;
+  const plan = getPlan(dayName());
+  const mode = today.sleep === 'yes' ? 'full' : 'reduced';
+  return plan[mode];
 }
 
 const MORNING_TRIGGER = [
@@ -1376,20 +1779,85 @@ function renderMorningSection() {
   return sec;
 }
 
+function renderExecModeSwitcher() {
+  const today = getToday();
+  const mode = today.exec || 'standard';
+  const wrap = el('div', { class: 'exec-mode ' + mode });
+
+  const left = el('div', { class: 'exec-mode-left' });
+  left.appendChild(el('div', { class: 'exec-mode-label' }, 'Execution mode'));
+  let valueText, sub;
+  if (mode === 'standard')      { valueText = 'STANDARD'; sub = 'Mission, on time'; }
+  else if (mode === 'delayed')  { valueText = 'DELAYED — finish by 8:30 PM'; sub = 'Morning disrupted. Workout shifts to evening. Food stays on plan.'; }
+  else                          { valueText = 'NO-ZERO — minimum save'; sub = '20 min walk + 2 rounds. Mission preserved. Tomorrow = full protocol.'; }
+  left.appendChild(el('div', { class: 'exec-mode-value' }, valueText));
+  left.appendChild(el('div', { class: 'exec-mode-cutoff' }, sub));
+
+  const btns = el('div', { class: 'exec-mode-btns' });
+  ['standard','delayed','no-zero'].forEach(m => {
+    const label = m === 'no-zero' ? 'No-Zero' : (m.charAt(0).toUpperCase() + m.slice(1));
+    const b = el('button', {
+      class: 'exec-mode-btn ' + m + (mode === m ? ' active' : ''),
+      onclick: () => setExecMode(m)
+    }, label);
+    btns.appendChild(b);
+  });
+
+  wrap.appendChild(left);
+  wrap.appendChild(btns);
+  return wrap;
+}
+
+function setExecMode(newMode) {
+  const today = getToday();
+  if (today.exec === newMode) return;
+  // Clear training-specific checks when switching to/from no-zero,
+  // since the task list itself changes
+  const switchingNoZero = today.exec === 'no-zero' || newMode === 'no-zero';
+  if (switchingNoZero) {
+    Object.keys(today.checks).forEach(k => {
+      if (k.startsWith('circuit') || k.startsWith('int-') || k.startsWith('walk') ||
+          k.startsWith('nz-') || k === 'warmup' || k === 'cooldown' || k === 'z2' ||
+          k === 'mtn' || k === 'mtn-r' || k === 'pack' || k === 'pack-r' ||
+          k === 'mob' || k === 'mob-r' || k === 'pick-format') {
+        delete today.checks[k];
+      }
+    });
+  }
+  today.exec = newMode;
+  saveStore(store);
+  render();
+  if (newMode === 'standard')      showToast('Standard execution');
+  else if (newMode === 'delayed')  showToast('Delayed mode — finish by 8:30 PM');
+  else                             showToast('No-zero — save the day');
+}
+
 function renderTrainingSection() {
   const today = getToday();
   const day = dayName();
-  const plan = getPlan(day);
-  const mode = today.sleep === 'yes' ? 'full' : 'reduced';
-  const items = plan[mode];
+  const exec = today.exec || 'standard';
+
+  let missionText, modeTag, items;
+  if (exec === 'no-zero') {
+    missionText = NO_ZERO_PLAN.mission;
+    modeTag = 'No-Zero';
+    items = NO_ZERO_PLAN.items;
+  } else {
+    const plan = getPlan(day);
+    const mode = today.sleep === 'yes' ? 'full' : 'reduced';
+    missionText = plan.mission;
+    modeTag = mode === 'full' ? 'Full' : 'Reduced';
+    items = plan[mode];
+  }
 
   const sec = el('section', { class: 'section' });
+  const tagClass = exec === 'no-zero' ? 'reduced' : (modeTag === 'Full' ? 'full' : 'reduced');
   const head = el('div', { class: 'section-head' },
     el('div', { class: 'section-head-left' },
       el('div', { class: 'section-num' }, '02 //'),
-      el('h2', { class: 'section-title' }, 'Training ', el('em', null, '/ ' + plan.mission.toLowerCase()))
+      el('h2', { class: 'section-title' }, 'Training ', el('em', null, '/ ' + missionText.toLowerCase()))
     ),
-    el('div', { class: 'section-tag ' + mode }, mode === 'full' ? 'Full' : 'Reduced')
+    el('div', { class: 'section-tag ' + tagClass }, modeTag)
   );
   sec.appendChild(head);
   const body = el('div', { class: 'section-body' });
@@ -1523,11 +1991,39 @@ function renderMealsSection() {
    STATIC SECTIONS
    ============================================================ */
 
+function renderPrimeRule() {
+  const banner = el('div', { class: 'prime-banner' });
+  const body = el('div', { class: 'prime-banner-body' });
+  body.appendChild(el('h3', { class: 'prime-banner-title', html: 'Start early <em>or</em> finish late.' }));
+  body.appendChild(el('div', { class: 'prime-banner-sub' }, 'The workout happens today. Morning is preferred. Evening is acceptable. Skipping is not. Mission delayed — not canceled.'));
+  banner.appendChild(body);
+
+  const wins = el('div', { class: 'prime-banner-wins' });
+  const winData = [
+    { label: 'Win A', text: 'Ideal morning — standard protocol' },
+    { label: 'Win B', text: 'Delayed evening — cutoff 8:30 PM' },
+    { label: 'Win C', text: 'No-zero minimum — save the day' },
+  ];
+  winData.forEach(w => {
+    const card = el('div', { class: 'prime-win' });
+    card.appendChild(el('div', { class: 'prime-win-label' }, w.label));
+    card.appendChild(el('div', { class: 'prime-win-text' }, w.text));
+    wins.appendChild(card);
+  });
+  banner.appendChild(wins);
+  return banner;
+}
+
 function renderRules() {
   const card = el('div', { class: 'rules-card' });
   card.appendChild(el('div', { class: 'rules-card-hd' }, 'Daily rules'));
   const ul = el('ul');
-  ['No zero days','Never miss twice','No decisions','No make-it-up-later behavior'].forEach(r => ul.appendChild(el('li', null, r)));
+  [
+    'No zero days',
+    'Never miss twice',
+    'Mission delayed, not canceled',
+    'No decisions — execute the script',
+  ].forEach(r => ul.appendChild(el('li', null, r)));
   card.appendChild(ul);
   return card;
 }
@@ -1535,20 +2031,32 @@ function renderRules() {
 function renderEmergency() {
   const sec = el('details', { class: 'collapse' });
   const sum = el('summary');
-  sum.appendChild(el('div', { class: 'collapse-title', html: '<span class="glyph">▲</span>If morning fails / Fall-off protocol' }));
+  sum.appendChild(el('div', { class: 'collapse-title', html: '<span class="glyph">▲</span>Delayed execution + fall-off protocol' }));
   sum.appendChild(el('div', { class: 'collapse-chev' }, '+'));
   sec.appendChild(sum);
 
   const body = el('div', { class: 'collapse-body' });
   body.innerHTML = `
-    <p><strong>If morning fails</strong> — baby chaos, work emergency, oversleep — the same workout still happens before bed. Even the reduced version. No carryover.</p>
+    <p><strong>If the morning blows up</strong> — baby chaos, work emergency, oversleep — tap <strong>Delayed</strong> on the execution mode switcher. Morning compliance (water, electrolytes, breakfast) still happens. Workout moves to evening.</p>
+    <div class="rule">
+      <div class="rule-trigger">Morning win</div>
+      <div class="rule-action">Standard protocol — hydration → training → breakfast → normal cadence.</div>
+    </div>
+    <div class="rule">
+      <div class="rule-trigger">Delayed exec</div>
+      <div class="rule-action">Food stays 100% on plan. Workout shifts to evening. <strong>Hard cutoff: 8:30 PM.</strong> If smoked, do reduced. If decent, do full.</div>
+    </div>
+    <div class="rule">
+      <div class="rule-trigger">No-zero</div>
+      <div class="rule-action">Evening also collapses → 20 min walk + 2 rounds (pushups · squats · plank). Mission preserved. Tomorrow = full protocol.</div>
+    </div>
     <div class="rule">
       <div class="rule-trigger">Bad meal</div>
       <div class="rule-action">Next meal → immediately back on plan.</div>
     </div>
     <div class="rule">
       <div class="rule-trigger">Bad day</div>
-      <div class="rule-action">Next morning → full protocol.</div>
+      <div class="rule-action">Next morning → full protocol. No carryover, no make-up.</div>
     </div>
     <div class="rule">
       <div class="rule-trigger">Bad weekend</div>
@@ -1572,6 +2080,35 @@ function renderWeeklyCheck() {
   sec.appendChild(head);
   const body = el('div', { class: 'section-body' });
   body.appendChild(renderTaskItem({ id: 'wk-weigh', text: 'Weigh in', detail: 'Same time, same conditions each week.' }));
+  sec.appendChild(body);
+  return sec;
+}
+
+function renderSauna() {
+  if (!store.settings.sauna) return null;
+  const today = getToday();
+  const checked = !!today.checks['sauna-session'];
+
+  const sec = el('section', { class: 'section sauna-section' });
+  const head = el('div', { class: 'section-head' },
+    el('div', { class: 'section-head-left' },
+      el('div', { class: 'section-num' }, '05 //'),
+      el('h2', { class: 'section-title' }, 'Sauna ', el('em', null, '/ recovery'))
+    ),
+    el('div', { class: 'section-tag' }, 'Optional · 2–4x / wk')
+  );
+  sec.appendChild(head);
+
+  const body = el('div', { class: 'sauna-body' });
+  const row = el('div', { class: 'sauna-row' + (checked ? ' checked' : ''), dataset: { id: 'sauna-session' }, onclick: () => toggleCheck('sauna-session') });
+  row.appendChild(el('div', { class: 'task-box' }));
+  const txt = el('div', { class: 'sauna-text', html: '<strong>10–20 min sauna</strong><small>170–190°F if traditional dry. Hydrate before · cool shower after · finish 60–90 min pre-sleep.</small>' });
+  row.appendChild(txt);
+  body.appendChild(row);
+
+  body.appendChild(el('div', { class: 'sauna-note' },
+    'Support tool, not a required task — doesn\'t count toward today\'s progress. Best uses: evening recovery, post-mountain decompression, red-day identity preservation.'
+  ));
   sec.appendChild(body);
   return sec;
 }
@@ -1637,13 +2174,12 @@ function toggleCheck(id) {
 function getActiveTaskIds() {
   const today = getToday();
   const day = dayName();
-  const plan = getPlan(day);
-  const mode = today.sleep === 'yes' ? 'full' : 'reduced';
   const ids = [];
   MORNING_TRIGGER.forEach(t => ids.push(t.id));
-  plan[mode].forEach(t => ids.push(t.id));
+  getActiveTrainingItems().forEach(t => ids.push(t.id));
   MEALS.forEach(m => ids.push(m.id));
   if (day === 'saturday') { ids.push('wk-weigh'); }
+  // Sauna intentionally NOT counted — keeps it optional
   return ids;
 }
 
@@ -1705,11 +2241,16 @@ function isDayComplete(dateKey) {
   if (!data || !data.sleep) return false;
   const d = new Date(dateKey + 'T12:00:00');
   const dn = DAY_NAMES[d.getDay()];
-  const plan = getPlan(dn);
-  const mode = data.sleep === 'yes' ? 'full' : 'reduced';
+  const exec = data.exec || 'standard';
   const ids = [];
   MORNING_TRIGGER.forEach(t => ids.push(t.id));
-  plan[mode].forEach(t => ids.push(t.id));
+  if (exec === 'no-zero') {
+    NO_ZERO_PLAN.items.forEach(t => ids.push(t.id));
+  } else {
+    const plan = getPlan(dn);
+    const mode = data.sleep === 'yes' ? 'full' : 'reduced';
+    plan[mode].forEach(t => ids.push(t.id));
+  }
   MEALS.forEach(m => ids.push(m.id));
   if (dn === 'saturday') { ids.push('wk-weigh'); }
   return ids.every(id => data.checks && data.checks[id]);
@@ -1781,13 +2322,18 @@ function render() {
 
   if (today.sleep === null) {
     content.appendChild(renderSleepGate());
+    content.appendChild(renderPrimeRule());
     content.appendChild(renderRules());
     content.appendChild(renderEmergency());
   } else {
     content.appendChild(renderSleepStatus());
+    content.appendChild(renderExecModeSwitcher());
+    content.appendChild(renderPrimeRule());
     content.appendChild(renderMorningSection());
     content.appendChild(renderTrainingSection());
     content.appendChild(renderMealsSection());
+    const sauna = renderSauna();
+    if (sauna) content.appendChild(sauna);
     content.appendChild(renderRules());
     const wk = renderWeeklyCheck();
     if (wk) content.appendChild(wk);
@@ -1817,6 +2363,10 @@ function syncSettingsUI() {
   document.querySelectorAll('#opt-units button').forEach(b => {
     b.classList.toggle('active', b.dataset.val === store.settings.units);
   });
+  document.querySelectorAll('#opt-sauna button').forEach(b => {
+    const want = b.dataset.val === 'on';
+    b.classList.toggle('active', want === !!store.settings.sauna);
+  });
 }
 
 document.getElementById('btn-settings').addEventListener('click', openSettings);
@@ -1844,9 +2394,19 @@ document.querySelectorAll('#opt-units button').forEach(b => {
   });
 });
 
+document.querySelectorAll('#opt-sauna button').forEach(b => {
+  b.addEventListener('click', () => {
+    store.settings.sauna = (b.dataset.val === 'on');
+    saveStore(store);
+    syncSettingsUI();
+    render();
+    showToast(store.settings.sauna ? 'Sauna section enabled' : 'Sauna section hidden');
+  });
+});
+
 document.getElementById('btn-reset-today').addEventListener('click', () => {
-  if (!confirm('Reset today\'s progress? Sleep answer and all checks will clear for today only.')) return;
-  store.history[todayKey()] = { sleep: null, checks: {} };
+  if (!confirm('Reset today\'s progress? Sleep answer, execution mode, and all checks will clear for today only.')) return;
+  store.history[todayKey()] = { sleep: null, checks: {}, exec: 'standard' };
   saveStore(store);
   closeSettings();
   render();
@@ -1876,10 +2436,160 @@ function showToast(msg) {
   toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
 }
 
+/* ============================================================
+   REALIGN — drift check content
+   ============================================================ */
+
+const PERSONAL_ANCHORS = [
+  {
+    name: 'For Ana & Ava',
+    text: 'So you can run with them. So you can play with them. So you can chase their children one day.',
+  },
+  {
+    name: 'For Lizzie',
+    text: 'So she can be proud of the man she married.',
+  },
+  {
+    name: 'For yourself',
+    text: 'So you don\'t live what Thoreau named in <em>Walden</em> —',
+    quote: 'The mass of men lead lives of quiet desperation.',
+    quoteAttr: 'Henry David Thoreau · Walden, 1854',
+  },
+];
+
+const OPERATOR_CODE = [
+  'Pace, not panic. The mountain rewards rhythm.',
+  'Earn progression — do not seek it. Volume up only after the current week feels almost easy.',
+  'One pair of shoes is one injury waiting. Rotate: <em>road shoe / trail shoe.</em>',
+  'Prehab the feet — 5 min, 3×/week. Calf raises, tib raises, single-leg balance.',
+  'Indoor fallback always exists: incline treadmill, stair repeats, parking garage. <em>No weather excuses.</em>',
+  'Social meals: protein first. No emotional chaos around food.',
+  'Alcohol is incompatible with this phase. Not forever — for now.',
+  'The scale lies short-term. Waist tells the truth. <em>14 days of stall</em> before any plan change.',
+  'Stress meal default: protein + rice. Not emotional freedom.',
+  'Hungry between meals? Protein shake · Greek yogurt · sparkling water · or wait.',
+  'Start ten minutes. Then decide. Motivation is downstream of starting.',
+  'No architecture changes for 30 days. Optimization theater is a leak.',
+  'Gear is not training. Don\'t trade one for the other.',
+  'Dopamine leak? Walk · sauna · cold water · journal one line. Not food, not scroll.',
+  'Mountain Saturdays = family days when possible. Visible integration, not selfish extraction.',
+  'Sunday: 10-min review. Adherence, sleep, friction. Fix <em>one</em> thing — not everything.',
+];
+
+const QUOTES = [
+  {
+    text: 'Because it\'s there.',
+    author: 'George Mallory',
+    src: 'asked why climb Everest, New York Times, 1923',
+  },
+  {
+    text: 'You have power over your mind — not outside events. Realize this, and you will find strength.',
+    author: 'Marcus Aurelius',
+    src: 'Meditations',
+  },
+  {
+    text: 'Difficulties strengthen the mind, as labor does the body.',
+    author: 'Seneca',
+    src: 'Moral Letters to Lucilius',
+  },
+  {
+    text: 'The credit belongs to the man who is actually in the arena, whose face is marred by dust and sweat and blood.',
+    author: 'Theodore Roosevelt',
+    src: 'Citizenship in a Republic, 1910',
+  },
+  {
+    text: 'First say to yourself what you would be; and then do what you have to do.',
+    author: 'Epictetus',
+    src: 'Discourses',
+  },
+  {
+    text: 'He who has a why to live for can bear almost any how.',
+    author: 'Friedrich Nietzsche',
+    src: 'Twilight of the Idols, 1889',
+  },
+];
+
+function renderRealignContent() {
+  const body = document.getElementById('realign-body');
+  body.innerHTML = '';
+
+  // Intro
+  body.appendChild(el('p', { class: 'realign-intro' },
+    'You opened this because something feels off. That\'s the system working. Read slowly. The day is still winnable.'
+  ));
+
+  // ── Personal anchors
+  const s1 = el('div', { class: 'realign-section' });
+  s1.appendChild(el('div', { class: 'realign-section-hd' },
+    el('span', null, 'Anchors'),
+    el('span', { class: 'meta' }, 'why')
+  ));
+  PERSONAL_ANCHORS.forEach(a => {
+    const card = el('div', { class: 'anchor' });
+    card.appendChild(el('div', { class: 'anchor-name' }, a.name));
+    card.appendChild(el('div', { class: 'anchor-text', html: a.text }));
+    if (a.quote) {
+      const q = el('div', { class: 'anchor-quote' });
+      q.innerHTML = '“' + a.quote + '”';
+      q.appendChild(el('span', { class: 'anchor-quote-attr' }, a.quoteAttr));
+      card.appendChild(q);
+    }
+    s1.appendChild(card);
+  });
+  body.appendChild(s1);
+
+  // ── Operator code
+  const s2 = el('div', { class: 'realign-section' });
+  s2.appendChild(el('div', { class: 'realign-section-hd' },
+    el('span', null, 'Operator code'),
+    el('span', { class: 'meta' }, 'how')
+  ));
+  const ul = el('ul', { class: 'code-list' });
+  OPERATOR_CODE.forEach((line, i) => {
+    const li = el('li', { class: 'code-line' });
+    li.appendChild(el('div', { class: 'idx' }, String(i + 1).padStart(2, '0')));
+    li.appendChild(el('div', { class: 'body', html: line }));
+    ul.appendChild(li);
+  });
+  s2.appendChild(ul);
+  body.appendChild(s2);
+
+  // ── Quotes
+  const s3 = el('div', { class: 'realign-section' });
+  s3.appendChild(el('div', { class: 'realign-section-hd' },
+    el('span', null, 'Field reading'),
+    el('span', { class: 'meta' }, 'for the long arc')
+  ));
+  QUOTES.forEach(q => {
+    const block = el('div', { class: 'quote-block' });
+    block.appendChild(el('div', { class: 'quote-text' }, q.text));
+    const attr = el('div', { class: 'quote-attr' });
+    attr.innerHTML = '<b>' + q.author + '</b><span class="src">· ' + q.src + '</span>';
+    block.appendChild(attr);
+    s3.appendChild(block);
+  });
+  body.appendChild(s3);
+}
+
+function openRealign() {
+  renderRealignContent();
+  document.getElementById('modal-realign').classList.add('open');
+}
+function closeRealign() {
+  document.getElementById('modal-realign').classList.remove('open');
+}
+
+document.getElementById('btn-realign').addEventListener('click', openRealign);
+document.getElementById('realign-close').addEventListener('click', closeRealign);
+document.getElementById('modal-realign').addEventListener('click', (e) => {
+  if (e.target.id === 'modal-realign') closeRealign();
+});
+
 document.addEventListener('keydown', (e) => {
   if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
   if (e.key === 's' || e.key === 'S') { openSettings(); }
-  if (e.key === 'Escape') { closeSettings(); }
+  if (e.key === 'a' || e.key === 'A') { openRealign(); }
+  if (e.key === 'Escape') { closeSettings(); closeRealign(); }
 });
 
 /* ============================================================
