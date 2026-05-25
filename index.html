@@ -1457,7 +1457,472 @@ main { position: relative; z-index: 1; }
   .prog-week-dot { width: 18px; height: 18px; font-size: 8px; }
   .prog-week { gap: 3px; }
   .protein-list .food-item { grid-template-columns: 1fr auto; }
+  .level-meta { font-size: 9px; }
+  .review-grid { grid-template-columns: 1fr; }
+  .energy-chips { gap: 4px; }
+  .energy-chip { width: 26px; height: 26px; font-size: 10px; }
 }
+
+/* ============================================================
+   PROGRESSION — level badge in stat strip + graduation card
+   ============================================================ */
+.level-badge {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+.level-value {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 22px;
+  color: var(--text);
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+.level-meta {
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  color: var(--text-mute);
+  text-transform: uppercase;
+}
+
+.grad-card {
+  margin: 28px 0;
+  border: 1px solid var(--moss);
+  background: linear-gradient(180deg, rgba(122,146,104,0.08), rgba(122,146,104,0.02));
+  position: relative;
+}
+.grad-card::before {
+  content: 'GRADUATION READY';
+  position: absolute;
+  top: -1px; left: 14px;
+  transform: translateY(-50%);
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.24em;
+  background: var(--bg);
+  padding: 0 8px;
+  color: var(--moss);
+}
+.grad-body { padding: 32px 22px 22px; }
+.grad-title {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(22px, 5vw, 28px);
+  line-height: 1.2;
+  color: var(--text);
+  margin: 0 0 8px;
+  letter-spacing: -0.015em;
+}
+.grad-title em { font-style: italic; color: var(--moss); font-weight: 400; }
+.grad-sub {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-2);
+  line-height: 1.55;
+  margin-bottom: 18px;
+  letter-spacing: 0.04em;
+}
+.grad-criteria {
+  margin: 14px 0 18px;
+  padding: 0;
+  list-style: none;
+  font-family: var(--mono);
+  font-size: 11px;
+}
+.grad-criteria li {
+  display: flex;
+  gap: 10px;
+  padding: 6px 0;
+  border-bottom: 1px dashed var(--border-soft);
+  color: var(--text-2);
+}
+.grad-criteria li:last-child { border-bottom: none; }
+.grad-criteria .check { color: var(--moss); font-weight: 600; flex-shrink: 0; }
+.grad-btn {
+  width: 100%;
+  padding: 14px;
+  background: var(--moss);
+  border: none;
+  color: var(--bg);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+.grad-btn:hover { opacity: 0.9; }
+.grad-defer {
+  margin-top: 8px;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-mute);
+  width: 100%;
+  padding: 10px;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.grad-defer:hover { color: var(--text-2); border-color: var(--text-mute); }
+
+/* ============================================================
+   DAILY ANCHOR LINE (top of morning section)
+   ============================================================ */
+.daily-anchor {
+  padding: 14px 16px 4px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text-2);
+  letter-spacing: -0.005em;
+  border-bottom: 1px dashed var(--border-soft);
+}
+.daily-anchor::before {
+  content: '— ';
+  color: var(--accent);
+  font-style: normal;
+  margin-right: 2px;
+}
+
+/* ============================================================
+   ENERGY CHIPS (in morning section)
+   ============================================================ */
+.energy-row {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border-soft);
+}
+.energy-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.energy-label .current {
+  color: var(--accent);
+  font-weight: 600;
+}
+.energy-chips {
+  display: flex;
+  gap: 6px;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+.energy-chip {
+  flex: 1;
+  min-width: 0;
+  height: 32px;
+  border: 1px solid var(--border);
+  background: var(--bg-elev);
+  color: var(--text-mute);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.energy-chip:hover { border-color: var(--accent); color: var(--accent); }
+.energy-chip.active {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* ============================================================
+   SUNDAY REVIEW CARD
+   ============================================================ */
+.review-card {
+  margin: 24px 0;
+  border: 1px solid var(--cyan);
+  background: rgba(91,138,153,0.04);
+  position: relative;
+}
+.review-card::before {
+  content: 'WEEKLY REVIEW';
+  position: absolute;
+  top: -1px; left: 14px;
+  transform: translateY(-50%);
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.24em;
+  background: var(--bg);
+  padding: 0 8px;
+  color: var(--cyan);
+}
+.review-body { padding: 30px 20px 20px; }
+.review-title {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 22px;
+  margin: 0 0 4px;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+.review-title em { font-style: italic; color: var(--cyan); }
+.review-summary {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-mute);
+  letter-spacing: 0.08em;
+  margin-bottom: 20px;
+}
+.review-summary b { color: var(--cyan); font-weight: 600; }
+.review-q {
+  margin-bottom: 16px;
+}
+.review-q-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  margin-bottom: 8px;
+}
+.review-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 6px;
+}
+.review-opt {
+  padding: 10px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  color: var(--text-2);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.review-opt:hover { border-color: var(--cyan); color: var(--cyan); }
+.review-opt.active {
+  background: rgba(91,138,153,0.12);
+  border-color: var(--cyan);
+  color: var(--cyan);
+}
+.review-input {
+  width: 100%;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 12px;
+  font-family: var(--mono);
+  font-size: 12px;
+  resize: vertical;
+  min-height: 60px;
+  letter-spacing: 0.01em;
+}
+.review-input:focus {
+  outline: none;
+  border-color: var(--cyan);
+}
+.review-submit {
+  margin-top: 14px;
+  width: 100%;
+  padding: 14px;
+  background: var(--cyan);
+  border: none;
+  color: var(--bg);
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.review-submit:disabled {
+  background: var(--border);
+  color: var(--text-faint);
+  cursor: not-allowed;
+}
+.review-done {
+  padding: 22px;
+  text-align: center;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 17px;
+  color: var(--text-2);
+  line-height: 1.55;
+}
+.review-done b { color: var(--cyan); font-weight: 500; font-style: normal; }
+
+/* ============================================================
+   DISCOMFORT PRACTICE
+   ============================================================ */
+.discomfort-task {
+  padding: 14px 16px;
+  border-top: 1px solid var(--border-soft);
+  border-bottom: 1px solid var(--border-soft);
+  background: rgba(91,138,153,0.03);
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  -webkit-tap-highlight-color: transparent;
+}
+.discomfort-task:hover { background: rgba(91,138,153,0.06); }
+.discomfort-task.checked .task-box {
+  border-color: var(--cyan);
+  background: rgba(91,138,153,0.12);
+}
+.discomfort-task.checked .task-box::after {
+  background: var(--cyan);
+  transform: scale(1);
+}
+.discomfort-text {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--text);
+}
+.discomfort-text small {
+  display: block;
+  font-size: 10px;
+  color: var(--text-mute);
+  margin-top: 4px;
+  font-style: italic;
+  letter-spacing: 0.04em;
+}
+.discomfort-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 4px;
+}
+
+/* ============================================================
+   SATURDAY MOUNTAIN — elevation + family + journal
+   ============================================================ */
+.mtn-block {
+  padding: 14px 16px;
+  border-top: 1px solid var(--border-soft);
+  background: rgba(217,119,66,0.03);
+}
+.mtn-target {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.mtn-target-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.mtn-target-value {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+.mtn-target-value .unit {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-mute);
+  letter-spacing: 0.12em;
+  margin-left: 4px;
+}
+.mtn-field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--border-soft);
+}
+.mtn-field:last-of-type { border-bottom: none; }
+.mtn-field-label {
+  flex-shrink: 0;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+  width: 90px;
+}
+.mtn-field input,
+.mtn-field textarea {
+  flex: 1;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 8px 10px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.01em;
+}
+.mtn-field input:focus,
+.mtn-field textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+.mtn-field textarea { resize: vertical; min-height: 44px; font-family: var(--serif); font-style: italic; font-size: 13px; line-height: 1.5; }
+
+/* ============================================================
+   SPARKLINES (in stat strip)
+   ============================================================ */
+.spark {
+  display: block;
+  width: 100%;
+  height: 18px;
+  margin-top: 4px;
+}
+.spark path { fill: none; stroke: var(--accent); stroke-width: 1.5; }
+.spark.moss path { stroke: var(--moss); }
+.spark .dot { fill: var(--accent); }
+.spark.moss .dot { fill: var(--moss); }
+
+/* ============================================================
+   TRAVEL MODE indicator
+   ============================================================ */
+.travel-banner {
+  margin: 18px 0 0;
+  padding: 10px 14px;
+  background: rgba(91,138,153,0.08);
+  border-left: 2px solid var(--cyan);
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-2);
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.travel-banner b { color: var(--cyan); font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; font-size: 10px; }
+.travel-banner button {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-mute);
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.travel-banner button:hover { border-color: var(--cyan); color: var(--cyan); }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -1501,16 +1966,17 @@ main { position: relative; z-index: 1; }
 
   <div class="stats">
     <div class="stat">
+      <div class="stat-label">Level</div>
+      <div class="stat-value accent" id="stat-level">L1</div>
+    </div>
+    <div class="stat">
       <div class="stat-label">Streak</div>
-      <div class="stat-value accent" id="stat-streak">0<span class="unit">d</span></div>
+      <div class="stat-value" id="stat-streak">0<span class="unit">d</span></div>
     </div>
     <div class="stat">
-      <div class="stat-label">Mode</div>
-      <div class="stat-value muted" id="stat-mode">—</div>
-    </div>
-    <div class="stat">
-      <div class="stat-label">Target</div>
+      <div class="stat-label" id="stat-trend-label">Target</div>
       <div class="stat-value" id="stat-target">195<span class="unit">lb</span></div>
+      <svg class="spark" id="spark-waist" viewBox="0 0 100 18" preserveAspectRatio="none" style="display:none;"></svg>
     </div>
   </div>
 
@@ -1567,6 +2033,19 @@ main { position: relative; z-index: 1; }
       </div>
 
       <div class="field">
+        <div class="field-label">Travel Mode</div>
+        <div class="opt-grid" id="opt-travel">
+          <button data-val="off">Home</button>
+          <button data-val="on">Traveling</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="field-label">Current Level</div>
+        <div id="settings-level-display" style="font-family:var(--mono);font-size:12px;color:var(--text-2);padding:10px;background:var(--surface);border:1px solid var(--border-soft);">—</div>
+      </div>
+
+      <div class="field">
         <div class="field-label">Danger Zone</div>
         <button class="danger-btn" id="btn-reset-today">Reset Today's Progress</button>
         <button class="danger-btn" id="btn-reset-all" style="margin-top:8px;">Wipe All Data</button>
@@ -1616,14 +2095,75 @@ function loadStore() {
 }
 function defaultStore() {
   return {
-    history: {},
-    settings: { snack: null, units: 'imperial', sauna: false },
+    history: {},                 // per-day: { sleep, checks, exec, energy, discomfortType }
+    settings: {
+      snack: null,
+      units: 'imperial',
+      sauna: false,
+      travel: false,
+      programStart: null,        // ISO date string, set on first day
+    },
+    level: 1,                    // 1..6
+    weekly: {                    // weekly metrics keyed by ISO week start (Monday)
+      // 'YYYY-MM-DD': { weight, waist, elevation, note }
+    },
+    reviews: {                   // Sunday review answers keyed by Sunday date
+      // 'YYYY-MM-DD': { adherence, sleep, friction, fixOne, completedAt }
+    },
+    gradDeferred: null,          // 'YYYY-MM-DD' to suppress graduation card temporarily
   };
 }
 function saveStore(s) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(s));
 }
 let store = loadStore();
+
+// Backfill new fields for stores created before this build
+if (!store.level) store.level = 1;
+if (!store.weekly) store.weekly = {};
+if (!store.reviews) store.reviews = {};
+if (!store.settings.travel) store.settings.travel = false;
+if (!store.settings.programStart) {
+  // First-ever load → mark program start
+  store.settings.programStart = todayKey();
+}
+
+/* ============================================================
+   WEEK MATH HELPERS
+   ============================================================ */
+function isoWeekStart(dateOrKey) {
+  const d = (typeof dateOrKey === 'string')
+    ? new Date(dateOrKey + 'T12:00:00')
+    : new Date(dateOrKey.getTime());
+  d.setHours(0,0,0,0);
+  const dow = d.getDay();                         // 0=Sun
+  const sinceMon = (dow === 0) ? 6 : (dow - 1);
+  d.setDate(d.getDate() - sinceMon);
+  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+}
+
+function weekWinCount(weekStartKey) {
+  let wins = 0;
+  const start = new Date(weekStartKey + 'T12:00:00');
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(start.getTime() + i * 86400000);
+    const k = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+    if (isDayComplete(k)) wins++;
+  }
+  return wins;
+}
+
+function lastNWeeks(n) {
+  const out = [];
+  let cur = new Date();
+  for (let i = 0; i < n; i++) {
+    const k = isoWeekStart(cur);
+    out.unshift(k);
+    cur = new Date(cur.getTime() - 7 * 86400000);
+  }
+  // dedupe in case of edge
+  return [...new Set(out)];
+}
 
 function getToday() {
   const k = todayKey();
@@ -1633,12 +2173,222 @@ function getToday() {
   // Migrate legacy exec values
   if (!store.history[k].exec || store.history[k].exec === 'standard') store.history[k].exec = 'am';
   if (store.history[k].exec === 'delayed') store.history[k].exec = 'pm';
+  // Snapshot current travel mode onto the day (for accurate historical scoring)
+  store.history[k].travel = !!store.settings.travel;
   return store.history[k];
 }
 
 /* ============================================================
    TRAINING PLANS
    ============================================================ */
+
+/* ============================================================
+   DAILY ANCHORS — rotate by day-of-week
+   ============================================================ */
+
+const DAILY_ANCHORS = [
+  /* Sun */ 'So Lizzie can be proud of the man she married.',
+  /* Mon */ 'So you can run with Ana and Ava — and chase their children one day.',
+  /* Tue */ 'The mass of men lead lives of quiet desperation. Not today.',
+  /* Wed */ 'Pace, not panic. The mountain rewards rhythm.',
+  /* Thu */ 'You have power over your mind — not outside events. — Marcus Aurelius',
+  /* Fri */ 'Difficulties strengthen the mind, as labor does the body. — Seneca',
+  /* Sat */ 'Because it\'s there. — Mallory',
+];
+
+/* ============================================================
+   DISCOMFORT PRACTICE — rotates weekly (by ISO week start)
+   ============================================================ */
+
+const DISCOMFORT_PRACTICES = [
+  {
+    name: 'Cold shower',
+    detail: '2–3 minutes at the end of a normal shower. Slow breathing. Don\'t flinch.',
+  },
+  {
+    name: 'Box breathing under load',
+    detail: '10 min. 4 in / 4 hold / 4 out / 4 hold. Do during a walk or sit upright.',
+  },
+  {
+    name: 'Fasted walk',
+    detail: '20 min. Before any food. Just water + LMNT. Be hungry. Notice it.',
+  },
+  {
+    name: 'Silent walk',
+    detail: '20 min during a daily walk. No podcast. No music. No phone. Just be.',
+  },
+];
+
+function thisWeekDiscomfort() {
+  const wk = isoWeekStart(new Date());
+  // Stable hash from week string
+  let h = 0;
+  for (let i = 0; i < wk.length; i++) h = (h * 31 + wk.charCodeAt(i)) | 0;
+  const idx = Math.abs(h) % DISCOMFORT_PRACTICES.length;
+  return DISCOMFORT_PRACTICES[idx];
+}
+
+/* ============================================================
+   PROGRESSION LEVELS — the long arc
+   ============================================================ */
+
+const LEVELS = {
+  1: {
+    name: 'Foundation',
+    sub: 'Lose fat · build identity · establish consistency',
+    nextLevel: 2,
+    graduationCriteria: [
+      { id: 'consistency', label: '8 consecutive weeks with ≥5 wins', check: () => consecutiveStrongWeeks() >= 8 },
+      { id: 'mountain', label: 'Saturday hike ≥ 2,000 ft elevation', check: () => maxSaturdayElevation() >= 2000 },
+      { id: 'streak', label: '14-day continuous streak achieved', check: () => maxStreakEver() >= 14 },
+    ],
+  },
+  2: {
+    name: 'Builder',
+    sub: 'Trail running · longer engine · loaded movement',
+    nextLevel: 3,
+    graduationCriteria: [
+      { id: 'consistency', label: '12 consecutive weeks with ≥5 wins', check: () => consecutiveStrongWeeks() >= 12 },
+      { id: 'mountain', label: 'Saturday hike ≥ 3,500 ft elevation', check: () => maxSaturdayElevation() >= 3500 },
+      { id: 'streak', label: '30-day continuous streak achieved', check: () => maxStreakEver() >= 30 },
+    ],
+  },
+  3: {
+    name: 'Hybrid Operator',
+    sub: 'Strength + engine · weighted carries · pull-up standards',
+    nextLevel: 4,
+    graduationCriteria: [
+      { id: 'consistency', label: '16 consecutive weeks with ≥5 wins', check: () => consecutiveStrongWeeks() >= 16 },
+      { id: 'mountain', label: 'Saturday hike ≥ 5,000 ft elevation', check: () => maxSaturdayElevation() >= 5000 },
+    ],
+  },
+  4: {
+    name: 'Expedition Engine',
+    sub: 'All-day capability · altitude prep · fueling strategy',
+    nextLevel: 5,
+    graduationCriteria: [
+      { id: 'consistency', label: '20 consecutive weeks with ≥5 wins', check: () => consecutiveStrongWeeks() >= 20 },
+      { id: 'mountain', label: 'Saturday effort ≥ 7,000 ft elevation', check: () => maxSaturdayElevation() >= 7000 },
+    ],
+  },
+  5: {
+    name: 'Objective Specialization',
+    sub: 'Mission-specific prep — Rainier · Denali · 50k · Everest',
+    nextLevel: 6,
+    graduationCriteria: [
+      { id: 'manual', label: 'Mark complete manually when objective achieved', check: () => false },
+    ],
+  },
+  6: {
+    name: 'Iconic Founder Mode',
+    sub: 'End-state archetype. Continued maintenance + new objectives.',
+    nextLevel: null,
+    graduationCriteria: [],
+  },
+};
+
+function consecutiveStrongWeeks() {
+  // Walk backward from last complete week (last week, not current)
+  let cur = new Date();
+  cur.setDate(cur.getDate() - 7);             // start from a week ago
+  let count = 0;
+  for (let i = 0; i < 52; i++) {
+    const wk = isoWeekStart(cur);
+    if (weekWinCount(wk) >= 5) count++;
+    else break;
+    cur = new Date(cur.getTime() - 7 * 86400000);
+  }
+  return count;
+}
+
+function maxSaturdayElevation() {
+  let max = 0;
+  Object.values(store.weekly || {}).forEach(w => {
+    if (w && typeof w.elevation === 'number' && w.elevation > max) max = w.elevation;
+  });
+  return max;
+}
+
+function maxStreakEver() {
+  // Count longest ever continuous run of complete days in history
+  const dates = Object.keys(store.history || {}).sort();
+  if (!dates.length) return 0;
+  let best = 0, run = 0;
+  let prev = null;
+  for (const k of dates) {
+    if (!isDayComplete(k)) { run = 0; prev = k; continue; }
+    if (prev) {
+      const pd = new Date(prev + 'T12:00:00');
+      const cd = new Date(k + 'T12:00:00');
+      const gap = (cd - pd) / 86400000;
+      if (gap === 1) run++;
+      else run = 1;
+    } else {
+      run = 1;
+    }
+    if (run > best) best = run;
+    prev = k;
+  }
+  return best;
+}
+
+function saturdayElevationTarget() {
+  // Nudge up every 4 program weeks; base = 1500 ft, +250 each block, level adjusted
+  const start = store.settings.programStart || todayKey();
+  const startDate = new Date(start + 'T12:00:00');
+  const today = new Date();
+  const programWeeks = Math.floor((today - startDate) / (7 * 86400000));
+  const blocks = Math.floor(programWeeks / 4);
+  const lvl = store.level || 1;
+  const baseByLevel = { 1: 1500, 2: 2500, 3: 4000, 4: 5500, 5: 7000, 6: 7000 };
+  const base = baseByLevel[lvl] || 1500;
+  return base + (blocks * 250);
+}
+
+/* ============================================================
+   TRAVEL MODE — hotel-compatible swap
+   ============================================================ */
+
+const TRAVEL_PLAN = {
+  mission: 'Travel Day',
+  items: [
+    { id: 'tv-walk', text: '20 min walk', detail: 'Outside if possible. Hotel hallways or block laps work. Move.' },
+    { id: 'tv-r1', text: 'Round 1 — hotel circuit', rounds: ['15 pushups','20 squats','10 lunges each leg','30 sec plank'], detail: '60 sec rest before round 2.' },
+    { id: 'tv-r2', text: 'Round 2 — hotel circuit', rounds: ['15 pushups','20 squats','10 lunges each leg','30 sec plank'] },
+  ],
+};
+
+const TRAVEL_MEALS = [
+  { id: 'meal-bf', timeLabel: 'AM', timeSub: 'simple', items: [
+    'Eggs (any prep) — order 3 whole',
+    'Water + electrolytes',
+  ]},
+  { id: 'meal-mm', timeLabel: 'Mid-Morn', timeSub: '', items: [
+    'Protein shake or jerky (40g protein floor)',
+  ]},
+  { id: 'meal-ln', timeLabel: 'Lunch', timeSub: 'restaurant rules', items: [
+    'Protein-first — chicken · beef · steak (any source)',
+    'Veg or salad — no creamy dressings',
+    'Skip the bread basket. Skip the fries.',
+  ]},
+  { id: 'meal-aft', timeLabel: 'Afternoon', timeSub: '', items: 'SNACK', note: 'Same as home — yogurt or eggs.' },
+  { id: 'meal-dn', timeLabel: 'Dinner', timeSub: 'restaurant rules', items: [
+    'Protein-first — order steak or burger (no bun) or fish/chicken',
+    'Vegetable side, not starch — unless you trained hard',
+    'Sparkling water. Skip the dessert tray.',
+  ]},
+];
+
+/* ============================================================
+   ENERGY LEVEL helper
+   ============================================================ */
+function setEnergy(n) {
+  const today = getToday();
+  today.energy = n;
+  saveStore(store);
+  render();
+}
+
 
 const TRAINING_PLANS = {
   monday: {
@@ -1733,6 +2483,7 @@ const NO_ZERO_PLAN = {
 // Returns the array of training items active for today given sleep + exec mode
 function getActiveTrainingItems() {
   const today = getToday();
+  if (store.settings.travel) return TRAVEL_PLAN.items;
   if (today.exec === 'no-zero') return NO_ZERO_PLAN.items;
   const plan = getPlan(dayName());
   // PM execution of a sleep-disrupting session → auto-substitute fallback
@@ -1741,6 +2492,10 @@ function getActiveTrainingItems() {
   }
   const mode = today.sleep === 'yes' ? 'full' : 'reduced';
   return plan[mode];
+}
+
+function getActiveMeals() {
+  return store.settings.travel ? TRAVEL_MEALS : MEALS;
 }
 
 const MORNING_TRIGGER = [
@@ -1880,10 +2635,42 @@ function renderMorningSection() {
     el('div', { class: 'section-tag' }, 'On wake')
   );
   sec.appendChild(head);
+
+  // Daily anchor — quiet italic line, rotates by day-of-week
+  const anchor = el('div', { class: 'daily-anchor' }, DAILY_ANCHORS[new Date().getDay()]);
+  sec.appendChild(anchor);
+
+  // Energy chip row — single-tap 1–10
+  sec.appendChild(renderEnergyRow());
+
   const body = el('div', { class: 'section-body' });
   MORNING_TRIGGER.forEach(t => body.appendChild(renderTaskItem(t)));
   sec.appendChild(body);
   return sec;
+}
+
+function renderEnergyRow() {
+  const today = getToday();
+  const row = el('div', { class: 'energy-row' });
+  const label = el('div', { class: 'energy-label' });
+  label.appendChild(el('span', null, 'Energy this morning'));
+  if (today.energy) {
+    label.appendChild(el('span', { class: 'current' }, today.energy + ' / 10'));
+  } else {
+    label.appendChild(el('span', null, 'Tap one'));
+  }
+  row.appendChild(label);
+
+  const chips = el('div', { class: 'energy-chips' });
+  for (let n = 1; n <= 10; n++) {
+    const b = el('button', {
+      class: 'energy-chip' + (today.energy === n ? ' active' : ''),
+      onclick: () => setEnergy(n),
+    }, String(n));
+    chips.appendChild(b);
+  }
+  row.appendChild(chips);
+  return row;
 }
 
 function renderExecModeSwitcher() {
@@ -1959,9 +2746,14 @@ function renderTrainingSection() {
   const today = getToday();
   const day = dayName();
   const exec = today.exec || 'am';
+  const travel = store.settings.travel;
 
   let missionText, modeTag, items, pmSubstituted = false;
-  if (exec === 'no-zero') {
+  if (travel) {
+    missionText = TRAVEL_PLAN.mission;
+    modeTag = 'Travel';
+    items = TRAVEL_PLAN.items;
+  } else if (exec === 'no-zero') {
     missionText = NO_ZERO_PLAN.mission;
     modeTag = 'No-Zero';
     items = NO_ZERO_PLAN.items;
@@ -1985,7 +2777,6 @@ function renderTrainingSection() {
   if (exec === 'no-zero')        tagClass = 'reduced';
   else if (modeTag === 'Full')   tagClass = 'full';
   else if (modeTag === 'Reduced') tagClass = 'reduced';
-  // PM Safe → default (no extra class)
 
   const head = el('div', { class: 'section-head' },
     el('div', { class: 'section-head-left' },
@@ -2002,8 +2793,33 @@ function renderTrainingSection() {
     body.appendChild(banner);
   }
   items.forEach(t => body.appendChild(renderTaskItem(t)));
+
+  // Thursday → discomfort practice (skip on travel and no-zero days)
+  if (!travel && exec !== 'no-zero' && day === 'thursday') {
+    body.appendChild(renderDiscomfortTask());
+  }
+
   sec.appendChild(body);
   return sec;
+}
+
+function renderDiscomfortTask() {
+  const practice = thisWeekDiscomfort();
+  const today = getToday();
+  const checked = !!today.checks['discomfort'];
+  const row = el('div', {
+    class: 'discomfort-task' + (checked ? ' checked' : ''),
+    dataset: { id: 'discomfort' },
+    onclick: () => toggleCheck('discomfort'),
+  });
+  row.appendChild(el('div', { class: 'task-box' }));
+  const main = el('div', { class: 'task-main' });
+  main.appendChild(el('div', { class: 'discomfort-label' }, 'Discomfort practice · this week'));
+  const t = el('div', { class: 'discomfort-text' });
+  t.innerHTML = '<strong>' + practice.name + '</strong><small>' + practice.detail + '</small>';
+  main.appendChild(t);
+  row.appendChild(main);
+  return row;
 }
 
 /* ============================================================
@@ -2086,16 +2902,17 @@ function renderCoreFoodsRef() {
 
 function renderMealsSection() {
   const sec = el('section', { class: 'section' });
+  const tag = store.settings.travel ? 'Travel' : 'Core';
   const head = el('div', { class: 'section-head' },
     el('div', { class: 'section-head-left' },
       el('div', { class: 'section-num' }, '03 //'),
       el('h2', { class: 'section-title' }, 'Fuel ', el('em', null, 'protocol'))
     ),
-    el('div', { class: 'section-tag' }, 'Core')
+    el('div', { class: 'section-tag' }, tag)
   );
   sec.appendChild(head);
   const body = el('div', { class: 'section-body' });
-  MEALS.forEach(m => body.appendChild(renderMealItem(m)));
+  getActiveMeals().forEach(m => body.appendChild(renderMealItem(m)));
   sec.appendChild(body);
 
   // Core foods tier list
@@ -2213,6 +3030,8 @@ function renderEmergency() {
 
 function renderWeeklyCheck() {
   if (dayName() !== 'saturday') return null;
+  const wk = isoWeekStart(new Date());
+  const wkData = (store.weekly && store.weekly[wk]) || {};
   const sec = el('section', { class: 'section' });
   const head = el('div', { class: 'section-head' },
     el('div', { class: 'section-head-left' },
@@ -2223,7 +3042,53 @@ function renderWeeklyCheck() {
   );
   sec.appendChild(head);
   const body = el('div', { class: 'section-body' });
-  body.appendChild(renderTaskItem({ id: 'wk-weigh', text: 'Weigh in', detail: 'Same time, same conditions each week.' }));
+  body.appendChild(renderTaskItem({ id: 'wk-weigh', text: 'Weigh in', detail: 'Same time, same conditions each week. Waist + elevation captured below.' }));
+
+  // Metrics block: weight + waist + elevation + family + journal
+  const mtn = el('div', { class: 'mtn-block' });
+  const units = store.settings.units === 'metric' ? { weight: 'kg', dist: 'm' } : { weight: 'lb', dist: 'ft' };
+
+  // Elevation target nudge
+  const target = saturdayElevationTarget();
+  const tgtRow = el('div', { class: 'mtn-target' });
+  tgtRow.appendChild(el('div', { class: 'mtn-target-label' }, 'This week\'s elevation target'));
+  const tgtVal = el('div', { class: 'mtn-target-value' });
+  tgtVal.innerHTML = target.toLocaleString() + '<span class="unit">' + units.dist + '</span>';
+  tgtRow.appendChild(tgtVal);
+  mtn.appendChild(tgtRow);
+
+  function field(label, key, type, placeholder) {
+    const row = el('div', { class: 'mtn-field' });
+    row.appendChild(el('div', { class: 'mtn-field-label' }, label));
+    const tag = type === 'text' ? 'textarea' : 'input';
+    const input = document.createElement(tag);
+    if (type !== 'text') input.type = type;
+    if (placeholder) input.placeholder = placeholder;
+    input.value = wkData[key] != null ? wkData[key] : '';
+    input.addEventListener('change', () => {
+      if (!store.weekly) store.weekly = {};
+      if (!store.weekly[wk]) store.weekly[wk] = {};
+      const v = input.value.trim();
+      if (v === '') {
+        delete store.weekly[wk][key];
+      } else {
+        store.weekly[wk][key] = (type === 'number') ? parseFloat(v) : v;
+      }
+      saveStore(store);
+      // Update sparklines if relevant
+      if (['waist','elevation'].includes(key)) updateHeader();
+    });
+    row.appendChild(input);
+    return row;
+  }
+
+  mtn.appendChild(field('Weight (' + units.weight + ')', 'weight', 'number', '—'));
+  mtn.appendChild(field('Waist (in)',                    'waist',  'number', '—'));
+  mtn.appendChild(field('Elev gained (' + units.dist + ')', 'elevation', 'number', target.toLocaleString()));
+  mtn.appendChild(field('Family along?',                 'family', 'text',   'e.g. brought Ana for first hour'));
+  mtn.appendChild(field('How did it feel?',              'journal','text',   'One line. Honest.'));
+
+  body.appendChild(mtn);
   sec.appendChild(body);
   return sec;
 }
@@ -2258,10 +3123,176 @@ function renderSauna() {
 }
 
 /* ============================================================
-   SLEEP GATE
+   TRAVEL BANNER · GRADUATION · SUNDAY REVIEW
    ============================================================ */
 
-function renderSleepGate() {
+function renderTravelBanner() {
+  if (!store.settings.travel) return null;
+  const wrap = el('div', { class: 'travel-banner' });
+  wrap.appendChild(el('div', null, ''));  // spacer for text
+  wrap.children[0].innerHTML = '<b>Travel mode</b> active — hotel circuit + restaurant rules. Sleep, water, protein-first. Move every day.';
+  const btn = el('button', {
+    onclick: () => {
+      store.settings.travel = false;
+      saveStore(store);
+      render();
+      showToast('Travel mode off');
+    }
+  }, 'End travel');
+  wrap.appendChild(btn);
+  return wrap;
+}
+
+function renderGraduationCard() {
+  const lvl = store.level || 1;
+  const def = LEVELS[lvl];
+  if (!def || !def.nextLevel || !def.graduationCriteria.length) return null;
+  // Suppress if user deferred today
+  if (store.gradDeferred === todayKey()) return null;
+
+  const results = def.graduationCriteria.map(c => ({ ...c, met: c.check() }));
+  const allMet = results.every(r => r.met);
+  if (!allMet) return null;
+
+  const next = LEVELS[def.nextLevel];
+  const card = el('div', { class: 'grad-card' });
+  const body = el('div', { class: 'grad-body' });
+  body.appendChild(el('h3', { class: 'grad-title', html: 'You\'ve earned ' + '<em>Level ' + def.nextLevel + ' — ' + next.name + '</em>' }));
+  body.appendChild(el('div', { class: 'grad-sub' }, next.sub));
+
+  const ul = el('ul', { class: 'grad-criteria' });
+  results.forEach(r => {
+    const li = el('li');
+    li.appendChild(el('span', { class: 'check' }, '✓'));
+    li.appendChild(el('span', null, r.label));
+    ul.appendChild(li);
+  });
+  body.appendChild(ul);
+
+  const goBtn = el('button', {
+    class: 'grad-btn',
+    onclick: () => {
+      if (!confirm('Advance to Level ' + def.nextLevel + ' — ' + next.name + '? This unlocks new training and progression criteria. You can\'t reverse this casually.')) return;
+      store.level = def.nextLevel;
+      saveStore(store);
+      render();
+      showToast('Level ' + store.level + ' unlocked — ' + next.name);
+    }
+  }, 'Begin Level ' + def.nextLevel);
+  body.appendChild(goBtn);
+
+  const deferBtn = el('button', {
+    class: 'grad-defer',
+    onclick: () => {
+      store.gradDeferred = todayKey();
+      saveStore(store);
+      render();
+      showToast('Maybe tomorrow');
+    }
+  }, 'Not today');
+  body.appendChild(deferBtn);
+
+  card.appendChild(body);
+  return card;
+}
+
+function renderSundayReview() {
+  if (dayName() !== 'sunday') return null;
+  // Show only after midday Sunday (give the day time to develop)
+  const hour = new Date().getHours();
+  if (hour < 12) return null;
+
+  // Last full week is the Monday→Sunday block ending today
+  const sundayKey = todayKey();
+  const monday = new Date();
+  monday.setDate(monday.getDate() - 6);
+  const monKey = monday.getFullYear() + '-' + String(monday.getMonth()+1).padStart(2,'0') + '-' + String(monday.getDate()).padStart(2,'0');
+  const wkStartKey = isoWeekStart(monday); // same as monKey usually
+
+  const existing = (store.reviews && store.reviews[sundayKey]) || null;
+  const card = el('div', { class: 'review-card' });
+  const body = el('div', { class: 'review-body' });
+
+  if (existing && existing.completedAt) {
+    body.innerHTML = '<div class="review-done"><b>Week reviewed.</b><br>One thing to fix this week:<br>"' + (existing.fixOne || '—') + '"</div>';
+    card.appendChild(body);
+    return card;
+  }
+
+  // Compute the week's wins
+  const wins = weekWinCount(wkStartKey);
+  const verdict = wins >= 5 ? 'excellent' : wins === 4 ? 'acceptable' : wins === 3 ? 'warning' : 'intervention';
+
+  body.appendChild(el('h3', { class: 'review-title', html: 'Sunday <em>review</em>' }));
+  const sum = el('div', { class: 'review-summary' });
+  sum.innerHTML = 'Last week: <b>' + wins + ' wins</b> · ' + verdict + ' · 3 questions, then fix one thing.';
+  body.appendChild(sum);
+
+  // Build question state in memory
+  if (!card._answers) card._answers = { adherence: null, sleep: null, friction: null, fixOne: '' };
+
+  function makeQuestion(label, key, options) {
+    const q = el('div', { class: 'review-q' });
+    q.appendChild(el('div', { class: 'review-q-label' }, label));
+    const grid = el('div', { class: 'review-grid' });
+    options.forEach(opt => {
+      const b = el('button', {
+        class: 'review-opt' + (card._answers[key] === opt ? ' active' : ''),
+        onclick: () => {
+          card._answers[key] = opt;
+          q.querySelectorAll('.review-opt').forEach(bb => bb.classList.remove('active'));
+          b.classList.add('active');
+          updateSubmitState();
+        },
+      }, opt);
+      grid.appendChild(b);
+    });
+    q.appendChild(grid);
+    return q;
+  }
+
+  body.appendChild(makeQuestion('Food adherence', 'adherence', ['Strong', 'Mixed', 'Slipped']));
+  body.appendChild(makeQuestion('Sleep this week', 'sleep', ['Good', 'Choppy', 'Wrecked']));
+  body.appendChild(makeQuestion('Biggest friction', 'friction', ['Time', 'Energy', 'Food', 'None']));
+
+  // Fix-one field
+  const fixQ = el('div', { class: 'review-q' });
+  fixQ.appendChild(el('div', { class: 'review-q-label' }, 'One thing to fix this week'));
+  const ta = document.createElement('textarea');
+  ta.className = 'review-input';
+  ta.placeholder = 'e.g. move LMNT next to the coffee maker';
+  ta.addEventListener('input', () => {
+    card._answers.fixOne = ta.value;
+    updateSubmitState();
+  });
+  fixQ.appendChild(ta);
+  body.appendChild(fixQ);
+
+  const submit = el('button', { class: 'review-submit', disabled: 'disabled' }, 'Lock review');
+  function updateSubmitState() {
+    const ans = card._answers;
+    const ready = ans.adherence && ans.sleep && ans.friction && ans.fixOne.trim().length > 0;
+    if (ready) submit.removeAttribute('disabled'); else submit.setAttribute('disabled', 'disabled');
+  }
+  submit.addEventListener('click', () => {
+    if (!store.reviews) store.reviews = {};
+    store.reviews[sundayKey] = {
+      ...card._answers,
+      fixOne: card._answers.fixOne.trim(),
+      wins: wins,
+      completedAt: new Date().toISOString(),
+    };
+    saveStore(store);
+    render();
+    showToast('Review locked. One thing to fix.');
+  });
+  body.appendChild(submit);
+
+  card.appendChild(body);
+  return card;
+}
+
+
   const gate = el('div', { class: 'gate' });
   gate.appendChild(el('div', { class: 'gate-sub' }, 'First decision of the day'));
   gate.appendChild(el('h2', { class: 'gate-q' }, 'Did you get at least 5 total hours of sleep?'));
@@ -2321,8 +3352,11 @@ function getActiveTaskIds() {
   const ids = [];
   MORNING_TRIGGER.forEach(t => ids.push(t.id));
   getActiveTrainingItems().forEach(t => ids.push(t.id));
-  MEALS.forEach(m => ids.push(m.id));
+  getActiveMeals().forEach(m => ids.push(m.id));
   if (day === 'saturday') { ids.push('wk-weigh'); }
+  if (!store.settings.travel && (today.exec || 'am') !== 'no-zero' && day === 'thursday') {
+    ids.push('discomfort');
+  }
   // Sauna intentionally NOT counted — keeps it optional
   return ids;
 }
@@ -2434,8 +3468,12 @@ function isDayComplete(dateKey) {
       plan[mode].forEach(t => ids.push(t.id));
     }
   }
-  MEALS.forEach(m => ids.push(m.id));
+  getActiveMeals().forEach(m => ids.push(m.id));
   if (dn === 'saturday') { ids.push('wk-weigh'); }
+  // Discomfort task on Thursdays for non-no-zero non-travel days
+  if (dn === 'thursday' && exec !== 'no-zero' && !data.travel) {
+    ids.push('discomfort');
+  }
   return ids.every(id => data.checks && data.checks[id]);
 }
 
@@ -2454,9 +3492,9 @@ function updateHeader() {
   const idx = now.getDay();
   document.getElementById('hero-day').innerHTML = DAY_DISPLAY[idx] + '<em>.</em>';
 
-  const allDates = Object.keys(store.history).sort();
-  const firstDate = allDates[0] || todayKey();
-  const start = new Date(firstDate + 'T12:00:00');
+  // Day-of-program count from programStart (preferred) or history fallback
+  const startKey = (store.settings && store.settings.programStart) || Object.keys(store.history).sort()[0] || todayKey();
+  const start = new Date(startKey + 'T12:00:00');
   const today = new Date(todayKey() + 'T12:00:00');
   const dayNum = Math.floor((today - start) / 86400000) + 1;
   const weekNum = Math.ceil(dayNum / 7);
@@ -2467,30 +3505,62 @@ function updateHeader() {
   const heroMission = document.getElementById('hero-mission');
   heroMission.innerHTML = '<span class="bar"></span><span>' + plan.mission.toUpperCase() + '</span>';
 
-  const todayData = getToday();
-  const stateMode = document.getElementById('stat-mode');
-  if (todayData.sleep === null) {
-    stateMode.textContent = '—';
-    stateMode.classList.remove('accent','moss');
-    stateMode.classList.add('muted');
-  } else if (todayData.sleep === 'yes') {
-    stateMode.textContent = 'FULL';
-    stateMode.classList.remove('muted','moss');
-    stateMode.classList.add('accent');
-  } else {
-    stateMode.textContent = 'REDUCED';
-    stateMode.classList.remove('muted','accent');
-    stateMode.classList.add('moss');
-  }
+  // Level
+  const lvl = store.level || 1;
+  const lvlEl = document.getElementById('stat-level');
+  if (lvlEl) lvlEl.innerHTML = 'L' + lvl + '<span class="unit">' + (LEVELS[lvl] ? LEVELS[lvl].name.toLowerCase().split(' ')[0] : '') + '</span>';
 
   document.getElementById('meta-date').textContent = todayKey();
   document.getElementById('meta-time').textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
 
+  // Trend cell — prefers waist sparkline if there's data, else target weight
+  updateTrendCell();
+}
+
+function updateTrendCell() {
+  const labelEl = document.getElementById('stat-trend-label');
   const targetEl = document.getElementById('stat-target');
-  if (store.settings.units === 'metric') {
-    targetEl.innerHTML = '88<span class="unit">kg</span>';
+  const spark = document.getElementById('spark-waist');
+  if (!labelEl || !targetEl || !spark) return;
+
+  // Gather waist series, oldest first
+  const series = [];
+  Object.keys(store.weekly || {}).sort().forEach(k => {
+    const w = store.weekly[k];
+    if (w && typeof w.waist === 'number' && !isNaN(w.waist)) {
+      series.push({ k, v: w.waist });
+    }
+  });
+
+  if (series.length >= 2) {
+    labelEl.textContent = 'Waist';
+    const latest = series[series.length - 1].v;
+    targetEl.innerHTML = latest.toFixed(1) + '<span class="unit">in</span>';
+    // Build path
+    const n = series.length;
+    const vals = series.map(s => s.v);
+    const min = Math.min(...vals);
+    const max = Math.max(...vals);
+    const range = (max - min) || 1;
+    const pts = series.map((s, i) => {
+      const x = (i / (n - 1)) * 100;
+      // Invert y so down = down (lower waist plots lower)
+      const y = 16 - ((s.v - min) / range) * 14;
+      return [x, y];
+    });
+    let d = 'M ' + pts.map(p => p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' L ');
+    const last = pts[pts.length - 1];
+    spark.innerHTML = '<path d="' + d + '" /><circle class="dot" cx="' + last[0].toFixed(1) + '" cy="' + last[1].toFixed(1) + '" r="1.6" />';
+    spark.classList.toggle('moss', latest <= vals[0]); // moss when trending down
+    spark.style.display = 'block';
   } else {
-    targetEl.innerHTML = '195<span class="unit">lb</span>';
+    labelEl.textContent = 'Target';
+    if (store.settings.units === 'metric') {
+      targetEl.innerHTML = '88<span class="unit">kg</span>';
+    } else {
+      targetEl.innerHTML = '195<span class="unit">lb</span>';
+    }
+    spark.style.display = 'none';
   }
 }
 
@@ -2504,11 +3574,22 @@ function render() {
   const today = getToday();
 
   if (today.sleep === null) {
+    // Travel banner shows even before sleep set
+    const tb = renderTravelBanner();
+    if (tb) content.appendChild(tb);
     content.appendChild(renderSleepGate());
     content.appendChild(renderPrimeRule());
     content.appendChild(renderRules());
     content.appendChild(renderEmergency());
   } else {
+    // Top-of-day cards: travel banner → Sunday review (if applicable) → graduation (if earned)
+    const tb = renderTravelBanner();
+    if (tb) content.appendChild(tb);
+    const review = renderSundayReview();
+    if (review) content.appendChild(review);
+    const grad = renderGraduationCard();
+    if (grad) content.appendChild(grad);
+
     content.appendChild(renderSleepStatus());
     content.appendChild(renderExecModeSwitcher());
     content.appendChild(renderPrimeRule());
@@ -2550,6 +3631,16 @@ function syncSettingsUI() {
     const want = b.dataset.val === 'on';
     b.classList.toggle('active', want === !!store.settings.sauna);
   });
+  document.querySelectorAll('#opt-travel button').forEach(b => {
+    const want = b.dataset.val === 'on';
+    b.classList.toggle('active', want === !!store.settings.travel);
+  });
+  const lvlDisp = document.getElementById('settings-level-display');
+  if (lvlDisp) {
+    const lvl = store.level || 1;
+    const def = LEVELS[lvl];
+    lvlDisp.innerHTML = '<b style="color:var(--accent)">Level ' + lvl + '</b> · ' + def.name + '<br><span style="color:var(--text-mute);font-size:10px;letter-spacing:0.08em;">' + def.sub + '</span>';
+  }
 }
 
 document.getElementById('btn-settings').addEventListener('click', openSettings);
@@ -2584,6 +3675,16 @@ document.querySelectorAll('#opt-sauna button').forEach(b => {
     syncSettingsUI();
     render();
     showToast(store.settings.sauna ? 'Sauna section enabled' : 'Sauna section hidden');
+  });
+});
+
+document.querySelectorAll('#opt-travel button').forEach(b => {
+  b.addEventListener('click', () => {
+    store.settings.travel = (b.dataset.val === 'on');
+    saveStore(store);
+    syncSettingsUI();
+    render();
+    showToast(store.settings.travel ? 'Travel mode on' : 'Travel mode off');
   });
 });
 
