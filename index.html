@@ -1617,13 +1617,13 @@ main { position: relative; z-index: 1; }
 .energy-chips {
   display: flex;
   gap: 6px;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   justify-content: space-between;
 }
 .energy-chip {
-  flex: 1;
-  min-width: 0;
-  height: 32px;
+  flex: 1 1 calc(20% - 5px);
+  min-width: 30px;
+  height: 36px;
   border: 1px solid var(--border);
   background: var(--bg-elev);
   color: var(--text-mute);
@@ -3293,6 +3293,7 @@ function renderSundayReview() {
 }
 
 
+function renderSleepGate() {
   const gate = el('div', { class: 'gate' });
   gate.appendChild(el('div', { class: 'gate-sub' }, 'First decision of the day'));
   gate.appendChild(el('h2', { class: 'gate-q' }, 'Did you get at least 5 total hours of sleep?'));
