@@ -996,7 +996,7 @@ main { position: relative; z-index: 1; }
   margin: 0 auto;
   padding: 12px var(--pad);
   display: grid;
-  grid-template-columns: auto 1fr auto auto;
+  grid-template-columns: auto 1fr auto auto auto;
   gap: 12px;
   align-items: center;
 }
@@ -1924,6 +1924,182 @@ main { position: relative; z-index: 1; }
 }
 .travel-banner button:hover { border-color: var(--cyan); color: var(--cyan); }
 
+/* ============================================================
+   PROGRESS VIEW — weekly charts modal (Sunday-gated)
+   ============================================================ */
+.prog-btn-text.locked {
+  color: var(--text-faint);
+  border-color: var(--border-soft);
+  cursor: default;
+}
+.prog-btn-text.locked:hover {
+  color: var(--text-faint);
+  border-color: var(--border-soft);
+}
+
+.modal--progress { max-width: 600px; }
+.progress-section {
+  margin-bottom: 28px;
+}
+.progress-section:last-child { margin-bottom: 0; }
+.progress-hd {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+/* SVG chart container */
+.chart-wrap {
+  background: var(--bg);
+  border: 1px solid var(--border-soft);
+  padding: 16px 12px 8px;
+  margin-bottom: 12px;
+  position: relative;
+  overflow: hidden;
+}
+.chart-wrap svg {
+  display: block;
+  width: 100%;
+  height: 140px;
+}
+.chart-wrap svg text {
+  font-family: var(--mono);
+  font-size: 8px;
+  fill: var(--text-mute);
+}
+.chart-wrap svg .chart-line {
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.chart-wrap svg .chart-dot {
+  r: 3;
+}
+.chart-wrap svg .chart-area {
+  opacity: 0.08;
+}
+.chart-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.chart-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+.chart-current {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+.chart-current .unit {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--text-mute);
+  letter-spacing: 0.12em;
+  margin-left: 3px;
+}
+.chart-current .delta {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  margin-left: 8px;
+}
+.chart-current .delta.down { color: var(--moss); }
+.chart-current .delta.up { color: var(--signal); }
+.chart-current .delta.flat { color: var(--text-mute); }
+
+/* Win bars */
+.win-bars {
+  display: flex;
+  gap: 4px;
+  align-items: flex-end;
+  height: 80px;
+  padding: 0 2px;
+}
+.win-bar-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  height: 100%;
+  justify-content: flex-end;
+}
+.win-bar {
+  width: 100%;
+  background: var(--border);
+  min-height: 2px;
+  transition: height 0.3s ease;
+}
+.win-bar.strong { background: var(--moss); }
+.win-bar.acceptable { background: var(--accent); }
+.win-bar.warning { background: var(--signal); }
+.win-bar-label {
+  font-family: var(--mono);
+  font-size: 8px;
+  color: var(--text-mute);
+  letter-spacing: 0.08em;
+}
+.win-bar-count {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--text-2);
+  font-weight: 600;
+}
+
+/* Journal log */
+.journal-log {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.journal-entry {
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--border-soft);
+  display: flex;
+  gap: 12px;
+}
+.journal-entry:last-child { border-bottom: none; }
+.journal-date {
+  flex-shrink: 0;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: var(--text-mute);
+  text-transform: uppercase;
+  width: 70px;
+  padding-top: 2px;
+}
+.journal-text {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 14px;
+  color: var(--text-2);
+  line-height: 1.5;
+}
+.progress-empty {
+  padding: 20px;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-mute);
+  letter-spacing: 0.08em;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -1995,6 +2171,7 @@ main { position: relative; z-index: 1; }
       <span class="label">—</span>
     </div>
     <div class="prog-week" id="prog-week"></div>
+    <button class="prog-btn-text locked" id="btn-progress" title="Weekly progress (unlocks Sundays)">Progress</button>
     <button class="prog-btn-text" id="btn-realign" title="Realign / drift check">Align</button>
     <button class="prog-btn" id="btn-settings" title="Settings">⚙</button>
   </div>
@@ -2067,6 +2244,18 @@ main { position: relative; z-index: 1; }
   </div>
 </div>
 
+<div class="modal-overlay" id="modal-progress">
+  <div class="modal modal--progress">
+    <div class="modal-hd">
+      <h3>Progress</h3>
+      <button class="modal-close" id="progress-close">✕</button>
+    </div>
+    <div class="modal-body" id="progress-body">
+      <!-- rendered dynamically -->
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -2126,6 +2315,19 @@ if (!store.settings.travel) store.settings.travel = false;
 if (!store.settings.programStart) {
   // First-ever load → mark program start
   store.settings.programStart = todayKey();
+}
+
+// Seed baseline if no weekly data exists yet
+if (Object.keys(store.weekly).length === 0) {
+  // User started ~1 week ago. Seed baseline week.
+  const now = new Date();
+  const oneWeekAgo = new Date(now.getTime() - 7 * 86400000);
+  const baselineWeek = isoWeekStart(oneWeekAgo);
+  store.weekly[baselineWeek] = { weight: 220.3, waist: 40, elevation: 0 };
+  // Move programStart to reflect the real start
+  const startD = new Date(baselineWeek + 'T12:00:00');
+  store.settings.programStart = baselineWeek;
+  saveStore(store);
 }
 
 /* ============================================================
@@ -3606,6 +3808,7 @@ function render() {
   updateHeader();
   updateProgress();
   updateStreak();
+  updateProgressButton();
 }
 
 /* ============================================================
@@ -3869,11 +4072,254 @@ document.getElementById('modal-realign').addEventListener('click', (e) => {
   if (e.target.id === 'modal-realign') closeRealign();
 });
 
+/* ============================================================
+   PROGRESS — Sunday-gated weekly view
+   ============================================================ */
+
+function canViewProgress() {
+  // Only after Sunday review is locked
+  if (dayName() !== 'sunday') return false;
+  const rev = store.reviews && store.reviews[todayKey()];
+  return !!(rev && rev.completedAt);
+}
+
+function updateProgressButton() {
+  const btn = document.getElementById('btn-progress');
+  if (!btn) return;
+  const unlocked = canViewProgress();
+  btn.classList.toggle('locked', !unlocked);
+  btn.title = unlocked ? 'View weekly progress' : 'Unlocks after Sunday review';
+}
+
+function openProgress() {
+  if (!canViewProgress()) {
+    if (dayName() === 'sunday') {
+      showToast('Complete your Sunday review first');
+    } else {
+      showToast('Progress unlocks Sundays after review');
+    }
+    return;
+  }
+  renderProgressContent();
+  document.getElementById('modal-progress').classList.add('open');
+}
+function closeProgress() {
+  document.getElementById('modal-progress').classList.remove('open');
+}
+
+function renderProgressContent() {
+  const body = document.getElementById('progress-body');
+  body.innerHTML = '';
+
+  // Gather data series from store.weekly
+  const weekKeys = Object.keys(store.weekly || {}).sort();
+  const weightSeries = [];
+  const waistSeries = [];
+  const elevSeries = [];
+
+  weekKeys.forEach(k => {
+    const w = store.weekly[k];
+    if (!w) return;
+    const label = k.slice(5); // 'MM-DD'
+    if (typeof w.weight === 'number' && !isNaN(w.weight)) weightSeries.push({ k, label, v: w.weight });
+    if (typeof w.waist === 'number' && !isNaN(w.waist)) waistSeries.push({ k, label, v: w.waist });
+    if (typeof w.elevation === 'number' && !isNaN(w.elevation)) elevSeries.push({ k, label, v: w.elevation });
+  });
+
+  // ── Weight chart
+  if (weightSeries.length >= 1) {
+    const s = el('div', { class: 'progress-section' });
+    s.appendChild(el('div', { class: 'progress-hd' }, 'Weight'));
+    s.appendChild(buildLineChart(weightSeries, 'lb', 'accent', true));
+    body.appendChild(s);
+  }
+
+  // ── Waist chart
+  if (waistSeries.length >= 1) {
+    const s = el('div', { class: 'progress-section' });
+    s.appendChild(el('div', { class: 'progress-hd' }, 'Waist'));
+    s.appendChild(buildLineChart(waistSeries, 'in', 'moss', true));
+    body.appendChild(s);
+  }
+
+  // ── Weekly wins
+  const winWeeks = lastNWeeks(12);
+  const winData = winWeeks.map(wk => ({ label: wk.slice(5), wins: weekWinCount(wk) }));
+  if (winData.length > 0) {
+    const s = el('div', { class: 'progress-section' });
+    s.appendChild(el('div', { class: 'progress-hd' }, 'Weekly wins'));
+    s.appendChild(buildWinBars(winData));
+    body.appendChild(s);
+  }
+
+  // ── Elevation
+  if (elevSeries.length >= 1) {
+    const s = el('div', { class: 'progress-section' });
+    s.appendChild(el('div', { class: 'progress-hd' }, 'Saturday elevation'));
+    s.appendChild(buildLineChart(elevSeries, 'ft', 'accent', false));
+    body.appendChild(s);
+  }
+
+  // ── Energy average
+  const energyByWeek = [];
+  winWeeks.forEach(wk => {
+    const start = new Date(wk + 'T12:00:00');
+    let sum = 0, count = 0;
+    for (let i = 0; i < 7; i++) {
+      const d = new Date(start.getTime() + i * 86400000);
+      const dk = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+      const day = store.history[dk];
+      if (day && typeof day.energy === 'number') { sum += day.energy; count++; }
+    }
+    if (count > 0) energyByWeek.push({ label: wk.slice(5), v: Math.round((sum / count) * 10) / 10 });
+  });
+  if (energyByWeek.length >= 2) {
+    const s = el('div', { class: 'progress-section' });
+    s.appendChild(el('div', { class: 'progress-hd' }, 'Average energy'));
+    s.appendChild(buildLineChart(energyByWeek.map(e => ({ ...e, k: e.label })), '/ 10', 'cyan', false));
+    body.appendChild(s);
+  }
+
+  // ── Saturday journal log
+  const journals = [];
+  weekKeys.forEach(k => {
+    const w = store.weekly[k];
+    if (w && w.journal && w.journal.trim()) {
+      journals.push({ date: k, text: w.journal.trim() });
+    }
+  });
+  if (journals.length > 0) {
+    const s = el('div', { class: 'progress-section' });
+    s.appendChild(el('div', { class: 'progress-hd' }, 'Saturday journal'));
+    const list = el('ul', { class: 'journal-log' });
+    journals.forEach(j => {
+      const li = el('li', { class: 'journal-entry' });
+      li.appendChild(el('div', { class: 'journal-date' }, j.date.slice(5)));
+      li.appendChild(el('div', { class: 'journal-text' }, '"' + j.text + '"'));
+      list.appendChild(li);
+    });
+    s.appendChild(list);
+    body.appendChild(s);
+  }
+
+  if (body.children.length === 0) {
+    body.appendChild(el('div', { class: 'progress-empty' }, 'No data yet. Log your Saturday metrics to see charts here.'));
+  }
+}
+
+function buildLineChart(series, unit, colorName, lowerIsBetter) {
+  const wrap = el('div', { class: 'chart-wrap' });
+
+  // Header row: label + current value + delta
+  const labelRow = el('div', { class: 'chart-label-row' });
+  const latest = series[series.length - 1].v;
+  const first = series[0].v;
+  const delta = latest - first;
+  const deltaAbs = Math.abs(delta).toFixed(1);
+  let deltaClass = 'flat';
+  let deltaSign = '';
+  if (delta < -0.1) { deltaClass = lowerIsBetter ? 'down' : 'up'; deltaSign = '↓ '; }
+  else if (delta > 0.1) { deltaClass = lowerIsBetter ? 'up' : 'down'; deltaSign = '↑ '; }
+
+  const cur = el('div', { class: 'chart-current' });
+  cur.innerHTML = latest.toFixed(1) + '<span class="unit">' + unit + '</span>';
+  if (series.length > 1) {
+    cur.innerHTML += '<span class="delta ' + deltaClass + '">' + deltaSign + deltaAbs + '</span>';
+  }
+  labelRow.appendChild(cur);
+  wrap.appendChild(labelRow);
+
+  if (series.length < 2) {
+    wrap.appendChild(el('div', { class: 'progress-empty' }, 'Need 2+ data points for a chart.'));
+    return wrap;
+  }
+
+  // SVG
+  const n = series.length;
+  const vals = series.map(s => s.v);
+  const min = Math.min(...vals);
+  const max = Math.max(...vals);
+  const range = (max - min) || 1;
+  const padX = 8;
+  const W = 100;
+  const H = 100;
+  const padY = 10;
+
+  const pts = series.map((s, i) => {
+    const x = padX + (i / (n - 1)) * (W - 2 * padX);
+    const y = padY + (1 - (s.v - min) / range) * (H - 2 * padY);
+    return [x, y];
+  });
+
+  const colorMap = {
+    accent: 'var(--accent)',
+    moss: 'var(--moss)',
+    cyan: 'var(--cyan)',
+  };
+  const stroke = colorMap[colorName] || 'var(--accent)';
+
+  let pathD = 'M ' + pts.map(p => p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' L ');
+  let areaD = pathD + ' L ' + pts[n-1][0].toFixed(1) + ' ' + H + ' L ' + pts[0][0].toFixed(1) + ' ' + H + ' Z';
+
+  const lastPt = pts[pts.length - 1];
+
+  let svgContent = '';
+  // X-axis labels
+  series.forEach((s, i) => {
+    const x = pts[i][0];
+    svgContent += '<text x="' + x.toFixed(1) + '" y="' + (H + 2) + '" text-anchor="middle" dominant-baseline="hanging">' + s.label + '</text>';
+  });
+  // Area fill
+  svgContent += '<path class="chart-area" d="' + areaD + '" fill="' + stroke + '" />';
+  // Line
+  svgContent += '<path class="chart-line" d="' + pathD + '" stroke="' + stroke + '" />';
+  // Dots
+  pts.forEach((p, i) => {
+    svgContent += '<circle class="chart-dot" cx="' + p[0].toFixed(1) + '" cy="' + p[1].toFixed(1) + '" fill="' + stroke + '" />';
+  });
+
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('viewBox', '0 0 ' + W + ' ' + (H + 14));
+  svg.setAttribute('preserveAspectRatio', 'none');
+  svg.innerHTML = svgContent;
+  wrap.appendChild(svg);
+  return wrap;
+}
+
+function buildWinBars(data) {
+  const wrap = el('div', { class: 'chart-wrap' });
+  const bars = el('div', { class: 'win-bars' });
+  const maxH = 70; // px
+  data.forEach(d => {
+    const col = el('div', { class: 'win-bar-col' });
+    col.appendChild(el('div', { class: 'win-bar-count' }, String(d.wins)));
+    const barH = d.wins > 0 ? Math.max(4, (d.wins / 7) * maxH) : 2;
+    let barClass = 'win-bar';
+    if (d.wins >= 5) barClass += ' strong';
+    else if (d.wins === 4) barClass += ' acceptable';
+    else if (d.wins >= 1) barClass += ' warning';
+    const bar = el('div', { class: barClass });
+    bar.style.height = barH + 'px';
+    col.appendChild(bar);
+    col.appendChild(el('div', { class: 'win-bar-label' }, d.label));
+    bars.appendChild(col);
+  });
+  wrap.appendChild(bars);
+  return wrap;
+}
+
+document.getElementById('btn-progress').addEventListener('click', openProgress);
+document.getElementById('progress-close').addEventListener('click', closeProgress);
+document.getElementById('modal-progress').addEventListener('click', (e) => {
+  if (e.target.id === 'modal-progress') closeProgress();
+});
+
 document.addEventListener('keydown', (e) => {
   if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
   if (e.key === 's' || e.key === 'S') { openSettings(); }
   if (e.key === 'a' || e.key === 'A') { openRealign(); }
-  if (e.key === 'Escape') { closeSettings(); closeRealign(); }
+  if (e.key === 'p' || e.key === 'P') { openProgress(); }
+  if (e.key === 'Escape') { closeSettings(); closeRealign(); closeProgress(); }
 });
 
 /* ============================================================
